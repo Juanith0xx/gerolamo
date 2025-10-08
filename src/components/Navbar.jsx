@@ -34,7 +34,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="bg-white shadow-md fixed top-0 left-0 w-full z-50">
+    <header className="bg-white shadow-md fixed top-0 left-0 w-full z-50 font-Poppins">
       <div className="max-w-7xl mx-auto px-4 lg:px-8 flex items-center justify-between h-20 mb-4 pt-4">
         {/* Logo */}
         <div className="flex items-center space-x-2">

@@ -3,7 +3,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        roboto: ['Roboto', 'sans-serif'], // tu fuente Roboto
+        roboto: ['Raleway', 'sans-serif'], // tu fuente Roboto
         poppins: ['Poppins', 'sans-serif'],
       },
       keyframes: {
