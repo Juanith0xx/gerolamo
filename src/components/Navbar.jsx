@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { HiMenu, HiX } from "react-icons/hi";
-import { FaShoppingBag, FaWhatsapp } from "react-icons/fa";
+import { FaShoppingBag, FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa"; // 👈 se agregó FaMapMarkerAlt
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -15,7 +15,7 @@ const Navbar = () => {
     {
       name: "Encuéntranos en",
       href: "#encuentranos",
-      icon: <FaShoppingBag className="text-[#E8609F]" />,
+      icon: <FaMapMarkerAlt className="text-[#E8609F]" />, // 👈 cambiado a ícono de ubicación
     },
     { name: "Blog", href: "#blog" },
   ];
@@ -34,12 +34,12 @@ const Navbar = () => {
   };
 
   return (
-    <header className="bg-white shadow-md fixed top-0 left-0 w-full z-50 font-[ceraround] font-black mt-2">
+    <header className="bg-white shadow-md fixed top-0 left-0 w-full z-50 font-ceraroundblack font-black mt-2">
       <div className="max-w-7xl mx-auto px-4 lg:px-8 flex items-center justify-between h-20 mb-4 pt-4">
         {/* Logo */}
         <div className="flex items-center space-x-2">
           <Link to="/">
-            <img src="/img/Logo.png" alt="GEROLAMO" className="h-20 w-auto" />
+            <img src="/img/Logo_G.png" alt="GEROLAMO" className="h-40 w-auto" />
           </Link>
         </div>
 
@@ -51,7 +51,7 @@ const Navbar = () => {
               <a
                 href={link.href}
                 onClick={(e) => handleScroll(e, link.href)}
-                className="hover:text-[#E8609F] transition hover:text-xl font-bold text-lg"
+                className="hover:text-[#EE66A2] transition hover:text-xl font-black text-lg"
               >
                 {link.name}
               </a>
@@ -88,14 +88,13 @@ const Navbar = () => {
               <a
                 href={link.href}
                 onClick={(e) => handleScroll(e, link.href)}
-                className="flex items-center text-gray-700 hover:text-pink-600 font-medium"
+                className="flex items-center text-gray-500 hover:text-pink-600 font-medium"
               >
                 {link.icon && <span className="mr-3">{link.icon}</span>}
                 {link.name}
               </a>
             </li>
           ))}
-
         </ul>
       </div>
     </header>

@@ -2,7 +2,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        ceraround: ['CeraRoundPro', 'sans-serif'],
+        ceraroundblack: ['CeraRoundProBlack', 'sans-serif'],
+        ceraroundregular: ['CeraRoundProRegular', 'sans-serif'],
+        ceraroundlight: ['CeraRoundProLight', 'sans-serif'],
         roboto: ['Raleway', 'sans-serif'],
         poppins: ['Poppins', 'sans-serif'],
       },
