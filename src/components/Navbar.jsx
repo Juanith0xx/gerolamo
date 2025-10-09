@@ -76,7 +76,7 @@ const Navbar = () => {
         }`}
       >
         <div className="flex items-center justify-between p-4 border-b">
-          <img src="/img/Logo.png" alt="GEROLAMO" className="h-10" />
+          <img src="/img/Logo_G.png" alt="GEROLAMO" className="h-10" />
           <button onClick={() => setOpen(false)}>
             <HiX size={26} />
           </button>
