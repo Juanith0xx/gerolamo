@@ -6,7 +6,7 @@ import { TbWorldCheck } from "react-icons/tb";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#EBBBE1] text-white font-CeraRoundProLight font-medium pt-10 pb-6 px-6 md:px-12 lg:px-20">
+    <footer className="bg-[#417ABD] text-white font-CeraRoundProLight font-medium pt-10 pb-6 px-6 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
         {/* Sección izquierda: Logo + descripción */}
         <div className="flex flex-col items-start">
@@ -23,7 +23,7 @@ const Footer = () => {
           </h3>
           <ul className="text-sm space-y-2">
             <li className="flex items-start gap-2">
-              <FaLocationDot className="text-2xl text-[#88A7CC] mt-[2px]" />
+              <FaLocationDot className="text-2xl text-[#EE66A2] mt-[2px]" />
               <div>
                 <span className="font-bold font-CeraRoundProRegular">Dirección: </span>
                 Laguna Sur Huingan Norte 9710, Bodega D21, Pudahuel, Santiago de Chile
@@ -31,24 +31,24 @@ const Footer = () => {
             </li>
 
             <li className="flex items-center gap-2 pt-2">
-              <CiMail className=" font-black text-2xl text-[#88A7CC] mt-[2px]" />
+              <CiMail className=" font-black text-2xl text-[#EE66A2] mt-[2px]" />
               <div>
                 <span className="font-bold font-CeraRoundProRegular">Email: </span>
-                <a href="mailto:info@gerolamo.cl" className="hover:text-[#88A7CC]">
+                <a href="mailto:info@gerolamo.cl" className="hover:text-[#EE66A2]">
                   info@gerolamo.cl
                 </a>
               </div>
             </li>
 
             <li className="flex items-center gap-2 pt-2">
-              <TbWorldCheck className="text-xl text-[#88A7CC] mt-[2px]" />
+              <TbWorldCheck className="text-xl text-[#EE66A2] mt-[2px]" />
               <div>
                 <span className="font-bold font-CeraRoundProRegular">Sitio web: </span>
                 <a
                   href="https://www.gerolamo.cl"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-[#88A7CC]"
+                  className="hover:text-[#EE66A2]"
                 >
                   www.gerolamo.cl
                 </a>
@@ -64,7 +64,7 @@ const Footer = () => {
             <li>
               <a
                 href="#superfood"
-                className="hover:text-[#88A7CC] font-CeraRoundProRegular font-medium hover:underline hover:font-bold text-lg"
+                className="hover:text-[#EE66A2] font-CeraRoundProRegular font-medium hover:underline hover:font-bold text-lg"
               >
                 Superfood
               </a>
@@ -72,7 +72,7 @@ const Footer = () => {
             <li>
               <a
                 href="#prescripcion"
-                className="hover:text-[#88A7CC] font-CeraRoundProRegular font-medium hover:underline hover:font-bold text-lg"
+                className="hover:text-[#EE66A2] font-CeraRoundProRegular font-medium hover:underline hover:font-bold text-lg"
               >
                 Prescripción
               </a>
@@ -80,7 +80,7 @@ const Footer = () => {
             <li>
               <a
                 href="#mantencion"
-                className="hover:text-[#88A7CC] font-CeraRoundProRegular font-medium hover:underline hover:font-bold text-lg"
+                className="hover:text-[#EE66A2] font-CeraRoundProRegular font-medium hover:underline hover:font-bold text-lg"
               >
                 Mantención
               </a>
@@ -88,7 +88,7 @@ const Footer = () => {
             <li>
               <a
                 href="#snack"
-                className="hover:text-[#88A7CC] font-CeraRoundProRegular font-medium hover:underline hover:font-bold text-lg"
+                className="hover:text-[#EE66A2] font-CeraRoundProRegular font-medium hover:underline hover:font-bold text-lg"
               >
                 Snack
               </a>
@@ -96,7 +96,7 @@ const Footer = () => {
             <li>
               <a
                 href="#encuentranos"
-                className="hover:text-[#88A7CC] font-CeraRoundProRegular font-medium hover:underline hover:font-bold text-lg"
+                className="hover:text-[#EE66A2] font-CeraRoundProRegular font-medium hover:underline hover:font-bold text-lg"
               >
                 Encuéntranos aquí
               </a>
