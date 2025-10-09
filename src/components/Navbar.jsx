@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { HiMenu, HiX } from "react-icons/hi";
-import { FaShoppingBag, FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa"; // 👈 se agregó FaMapMarkerAlt
+import { FaShoppingBag, FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa"; // 👈 íconos
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -15,7 +15,7 @@ const Navbar = () => {
     {
       name: "Encuéntranos en",
       href: "#encuentranos",
-      icon: <FaMapMarkerAlt className="text-[#E8609F]" />, // 👈 cambiado a ícono de ubicación
+      icon: <FaMapMarkerAlt className="text-[#EE66A2] ml-2" />, // 👈 ícono al final (espaciado con ml-2)
     },
     { name: "Blog", href: "#blog" },
   ];
@@ -47,13 +47,13 @@ const Navbar = () => {
         <nav className="hidden md:flex items-center space-x-4 text-gray-600 font-bold text-sm">
           {links.map((link, index) => (
             <div key={link.name} className="flex items-center space-x-1">
-              {link.icon && <span>{link.icon}</span>}
               <a
                 href={link.href}
                 onClick={(e) => handleScroll(e, link.href)}
-                className="hover:text-[#EE66A2] transition hover:text-xl font-black text-lg"
+                className="hover:text-[#EE66A2] transition hover:text-xl font-black text-lg flex items-center"
               >
                 {link.name}
+                {link.icon && <span>{link.icon}</span>} {/* 👈 ícono al final */}
               </a>
               {index < links.length - 1 && <Divider />}
             </div>
@@ -76,7 +76,7 @@ const Navbar = () => {
         }`}
       >
         <div className="flex items-center justify-between p-4 border-b">
-          <img src="/img/Logo_G.png" alt="GEROLAMO" className="h-10" />
+          <img src="/img/Logo_G.png" alt="GEROLAMO" className="h-22 w-auto" />
           <button onClick={() => setOpen(false)}>
             <HiX size={26} />
           </button>
@@ -88,10 +88,10 @@ const Navbar = () => {
               <a
                 href={link.href}
                 onClick={(e) => handleScroll(e, link.href)}
-                className="flex items-center text-gray-500 hover:text-pink-600 font-medium"
+                className="flex items-center text-gray-500 hover:text-pink-600 font-black"
               >
-                {link.icon && <span className="mr-3">{link.icon}</span>}
                 {link.name}
+                {link.icon && <span className="ml-2">{link.icon}</span>} {/* 👈 ícono al final */}
               </a>
             </li>
           ))}
