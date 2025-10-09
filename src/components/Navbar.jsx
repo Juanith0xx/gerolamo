@@ -14,9 +14,9 @@ const Navbar = () => {
     { name: "Mantención", href: "#mantencion" },
     { name: "Snack", href: "#snack" },
     {
-      name: "Encuéntranos en",
+      name: "Encuéntranos aquí",
       href: "#encuentranos",
-      icon: <FaMapMarkerAlt className="text-[#EE66A2] ml-2" />,
+      icon: <FaMapMarkerAlt className="text-[#EE66A2] ml-0" />,
     },
     { name: "Blog", href: "#blog" },
   ];
@@ -56,7 +56,7 @@ const Navbar = () => {
         {/* 🔍 Barra de búsqueda (Desktop) */}
         <form
           onSubmit={handleSearch}
-          className="hidden md:flex items-center bg-gray-100 rounded-full px-3 py-1 focus-within:ring-2 focus-within:ring-[#EE66A2] transition-all duration-200 w-72"
+          className="hidden md:flex items-center bg-gray-100 rounded-full px-3 py-1 focus-within:ring-2 focus-within:ring-[#EE66A2] transition-all duration-200 w-65"
         >
           <HiSearch className="text-gray-500 text-base" />
           <input
@@ -131,7 +131,7 @@ const Navbar = () => {
                 className="flex items-center text-gray-500 hover:text-pink-600 font-black"
               >
                 {link.name}
-                {link.icon && <span className="ml-2">{link.icon}</span>}
+                {link.icon && <span className="ml-1">{link.icon}</span>}
               </a>
             </li>
           ))}
