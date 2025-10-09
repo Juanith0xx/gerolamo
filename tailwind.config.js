@@ -1,9 +1,9 @@
-// tailwind.config.js
 export default {
   theme: {
     extend: {
       fontFamily: {
-        roboto: ['Raleway', 'sans-serif'], // tu fuente Roboto
+        ceraround: ['CeraRoundPro', 'sans-serif'],
+        roboto: ['Raleway', 'sans-serif'],
         poppins: ['Poppins', 'sans-serif'],
       },
       keyframes: {
