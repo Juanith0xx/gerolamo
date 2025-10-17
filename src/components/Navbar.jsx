@@ -1,15 +1,14 @@
-// src/components/Navbar.jsx
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { HiMenu, HiX, HiSearch } from "react-icons/hi";
-import { FaShoppingBag, FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa";
+import { FaShoppingBag, FaWhatsapp, FaMapMarkerAlt, FaUser } from "react-icons/fa";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
   const links = [
-    { name: "Superfood", href: "#superfood" },
+    { name: "SuperFood", href: "#superfood" },
     { name: "Prescripción", href: "#prescripcion" },
     { name: "Mantención", href: "#mantencion" },
     { name: "Snack", href: "#snack" },
@@ -38,7 +37,6 @@ const Navbar = () => {
     e.preventDefault();
     if (searchTerm.trim()) {
       console.log("Buscando:", searchTerm);
-      // 🔍 Aquí podrías redirigir o filtrar productos
       setSearchTerm("");
     }
   };
@@ -68,22 +66,33 @@ const Navbar = () => {
           />
         </form>
 
-        {/* Desktop Links */}
-        <nav className="hidden md:flex items-center space-x-4 text-gray-600 font-bold text-sm">
-          {links.map((link, index) => (
-            <div key={link.name} className="flex items-center space-x-1">
-              <a
-                href={link.href}
-                onClick={(e) => handleScroll(e, link.href)}
-                className="hover:text-[#EE66A2] transition hover:text-lg font-black text-base flex items-center"
-              >
-                {link.name}
-                {link.icon && <span>{link.icon}</span>}
-              </a>
-              {index < links.length - 1 && <Divider />}
-            </div>
-          ))}
-        </nav>
+        {/* Desktop Links + Login Icon */}
+        <div className="hidden md:flex items-center flex-1 justify-between ml-8">
+          <nav className="flex items-center space-x-4 text-gray-600 font-bold text-sm">
+            {links.map((link, index) => (
+              <div key={link.name} className="flex items-center space-x-1">
+                <a
+                  href={link.href}
+                  onClick={(e) => handleScroll(e, link.href)}
+                  className="hover:text-[#EE66A2] transition hover:text-lg font-black text-base flex items-center"
+                >
+                  {link.name}
+                  {link.icon && <span>{link.icon}</span>}
+                </a>
+                {index < links.length - 1 && <Divider />}
+              </div>
+            ))}
+          </nav>
+
+          {/* 🔐 Ícono de inicio de sesión */}
+          <Link
+            to="/login"
+            className="text-[#EE66A2] hover:text-pink-500 transition ml-auto pl-4"
+            title="Iniciar sesión"
+          >
+            <FaUser size={26} />
+          </Link>
+        </div>
 
         {/* Botón menú móvil */}
         <button
@@ -135,6 +144,18 @@ const Navbar = () => {
               </a>
             </li>
           ))}
+
+          {/* 🔐 Ícono + texto de inicio de sesión (móvil) */}
+          <li>
+            <Link
+              to="/login"
+              onClick={() => setOpen(false)}
+              className="flex items-center text-[#EE66A2] hover:text-pink-500 font-black"
+            >
+              <FaUser size={20} className="mr-2" />
+              Iniciar sesión
+            </Link>
+          </li>
         </ul>
       </div>
     </header>

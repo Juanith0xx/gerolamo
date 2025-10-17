@@ -63,10 +63,10 @@ const Footer = () => {
           <ul className="text-sm space-y-2 mb-4">
             <li>
               <a
-                href="#superfood"
+                href="#SuperFood"
                 className="hover:text-[#EE66A2] font-CeraRoundProRegular font-medium hover:underline hover:font-bold text-lg"
               >
-                Superfood
+                SuperFood
               </a>
             </li>
             <li>
