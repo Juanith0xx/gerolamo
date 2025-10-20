@@ -1,106 +1,212 @@
 import { useEffect, useState } from "react";
 
 const Dashboard = () => {
-  const [posts, setPosts] = useState([]);
+  const [pendingPosts, setPendingPosts] = useState([]); // Posts nuevos pendientes
+  const [allPosts, setAllPosts] = useState([]); // Todos los posts creados
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const token = localStorage.getItem("token"); // tu token JWT
+  const [editPostId, setEditPostId] = useState(null);
+  const [editTitle, setEditTitle] = useState("");
+  const [editContent, setEditContent] = useState("");
 
-  // Traer posts pendientes del backend
-  const fetchPosts = async () => {
+  const token = localStorage.getItem("token");
+
+  // Obtener posts pendientes
+  const fetchPendingPosts = async () => {
     try {
-      setLoading(true);
-      const res = await console.log("Enviando:", { email, password });
- fetch("http://localhost:5000/api/posts/pending", {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-        },
+      const res = await fetch("http://localhost:5000/api/posts/pending", {
+        headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.msg || "Error al obtener posts");
-      setPosts(data);
+      setPendingPosts(data);
     } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+      setError("Error cargando posts pendientes");
+    }
+  };
+
+  // Obtener todos los posts (aprobados y pendientes)
+  const fetchAllPosts = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/posts/approved", {
+        headers: { Authorization: `Bearer ${token}` }, // opcional si es público
+      });
+      const data = await res.json();
+      setAllPosts(data);
+    } catch (err) {
+      setError("Error cargando todos los posts");
     }
   };
 
   useEffect(() => {
-    fetchPosts();
+    const fetchData = async () => {
+      setLoading(true);
+      await fetchPendingPosts();
+      await fetchAllPosts();
+      setLoading(false);
+    };
+    fetchData();
   }, []);
 
-  // Aprobar un post
+  // Aprobar y rechazar posts
   const approvePost = async (id) => {
-    try {
-      const res = await fetch(`http://localhost:5000/api/posts/approve/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Authorization": `Bearer ${token}`,
-        },
-      });
-      if (!res.ok) throw new Error("Error al aprobar post");
-      // Actualizar la lista sin recargar
-      setPosts(posts.filter((post) => post._id !== id));
-    } catch (err) {
-      console.error(err);
-    }
+    await fetch(`http://localhost:5000/api/posts/approve/${id}`, {
+      method: "PATCH",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    fetchPendingPosts();
+    fetchAllPosts();
   };
 
-  // Rechazar un post
   const rejectPost = async (id) => {
-    try {
-      const res = await fetch(`http://localhost:5000/api/posts/reject/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Authorization": `Bearer ${token}`,
-        },
-      });
-      if (!res.ok) throw new Error("Error al rechazar post");
-      setPosts(posts.filter((post) => post._id !== id));
-    } catch (err) {
-      console.error(err);
-    }
+    await fetch(`http://localhost:5000/api/posts/reject/${id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    fetchPendingPosts();
+    fetchAllPosts();
   };
 
-  if (loading) return <div className="p-4">Cargando posts...</div>;
-  if (error) return <div className="p-4 text-red-500">{error}</div>;
+  // Editar posts existentes
+  const startEdit = (post) => {
+    setEditPostId(post._id);
+    setEditTitle(post.title);
+    setEditContent(post.content);
+  };
+
+  const cancelEdit = () => {
+    setEditPostId(null);
+    setEditTitle("");
+    setEditContent("");
+  };
+
+  const saveEdit = async () => {
+    await fetch(`http://localhost:5000/api/posts/${editPostId}`, {
+      method: "PUT",
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ title: editTitle, content: editContent }),
+    });
+    cancelEdit();
+    fetchAllPosts();
+  };
+
+  const deletePost = async (id) => {
+    await fetch(`http://localhost:5000/api/posts/${id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    fetchAllPosts();
+    fetchPendingPosts();
+  };
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">Dashboard: Aprobación de Posts</h2>
-      {posts.length === 0 ? (
-        <p>No hay posts pendientes.</p>
-      ) : (
-        <ul className="space-y-4">
-          {posts.map((post) => (
-            <li key={post._id} className="border p-4 rounded shadow flex justify-between items-center">
-              <div>
-                <h3 className="font-bold">{post.title}</h3>
-                <p className="text-gray-600">{post.content}</p>
-                <p className="text-sm text-gray-400">Autor: {post.author}</p>
+    <div className="p-6 max-w-6xl mx-auto">
+      <h2 className="text-3xl font-extrabold mb-6 text-gray-800">Dashboard de Administración</h2>
+
+      {loading && <p className="text-blue-500 text-lg">Cargando posts...</p>}
+      {error && <p className="text-red-500 text-lg">{error}</p>}
+
+      <div className="flex flex-col md:flex-row gap-6">
+        {/* Lado izquierdo: posts existentes (editar/eliminar) */}
+        <div className="flex-1">
+          <h3 className="text-2xl font-semibold mb-4 mt-12">Posts Creados</h3>
+          <div className="grid gap-4">
+            {allPosts.length === 0 && <p className="text-gray-500">No hay posts existentes.</p>}
+            {allPosts.map((post) => (
+              <div
+                key={post._id}
+                className="relative bg-white shadow-lg rounded-xl p-5 hover:shadow-2xl transition-all border border-gray-200"
+              >
+                <div className="absolute top-3 right-3 flex gap-2">
+                  <button
+                    onClick={() => startEdit(post)}
+                    className="bg-yellow-400 text-white px-3 py-1 rounded-full hover:bg-yellow-500"
+                  >
+                    ✎
+                  </button>
+                  <button
+                    onClick={() => deletePost(post._id)}
+                    className="bg-gray-600 text-white px-3 py-1 rounded-full hover:bg-gray-700"
+                  >
+                    🗑
+                  </button>
+                </div>
+
+                {editPostId === post._id ? (
+                  <div className="flex flex-col gap-2">
+                    <input
+                      value={editTitle}
+                      onChange={(e) => setEditTitle(e.target.value)}
+                      className="border p-2 rounded"
+                    />
+                    <textarea
+                      value={editContent}
+                      onChange={(e) => setEditContent(e.target.value)}
+                      className="border p-2 rounded"
+                    />
+                    <div className="flex gap-2 mt-2">
+                      <button
+                        onClick={saveEdit}
+                        className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                      >
+                        Guardar
+                      </button>
+                      <button
+                        onClick={cancelEdit}
+                        className="bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-600"
+                      >
+                        Cancelar
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <h4 className="font-bold text-lg text-gray-800 mb-1">{post.title}</h4>
+                    <p className="text-gray-700 mb-2">{post.content}</p>
+                    <p className="text-sm text-gray-500">Autor: {post.author}</p>
+                  </>
+                )}
               </div>
-              <div className="flex space-x-2">
-                <button
-                  onClick={() => approvePost(post._id)}
-                  className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
-                >
-                  Aprobar
-                </button>
-                <button
-                  onClick={() => rejectPost(post._id)}
-                  className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                >
-                  Rechazar
-                </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Lado derecho: posts pendientes (aprobar/rechazar) */}
+        <div className="w-full md:w-96 mt-12">
+          <h3 className="text-2xl font-semibold mb-4">Posts Pendientes</h3>
+          <div className="grid gap-4">
+            {pendingPosts.length === 0 && <p className="text-gray-500">No hay posts pendientes.</p>}
+            {pendingPosts.map((post) => (
+              <div
+                key={post._id}
+                className="relative bg-white shadow-lg rounded-xl p-5 hover:shadow-2xl transition-all border border-gray-200"
+              >
+                <div className="absolute top-3 right-3 flex gap-2">
+                  <button
+                    onClick={() => approvePost(post._id)}
+                    className="bg-green-500 text-white px-3 py-1 rounded-full hover:bg-green-600"
+                  >
+                    ✓
+                  </button>
+                  <button
+                    onClick={() => rejectPost(post._id)}
+                    className="bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                <h4 className="font-bold text-lg text-gray-800 mb-1">{post.title}</h4>
+                <p className="text-gray-700 mb-2">{post.content}</p>
+                <p className="text-sm text-gray-500">Autor: {post.author}</p>
               </div>
-            </li>
-          ))}
-        </ul>
-      )}
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default Dashboard;
+

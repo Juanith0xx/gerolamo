@@ -17,7 +17,7 @@ const Navbar = () => {
       href: "#encuentranos",
       icon: <FaMapMarkerAlt className="text-[#EE66A2] ml-0" />,
     },
-    { name: "Blog", href: "#blog" },
+    { name: "Blog", href: "/blog" },
   ];
 
   const handleScroll = (e, href) => {

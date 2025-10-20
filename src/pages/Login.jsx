@@ -26,6 +26,8 @@ const Login = () => {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
 
+        console.log("✅ Login exitoso:", data.user);
+
         // Redirigir según rol
         if (data.user.rol === "admin") {
           navigate("/dashboard");
