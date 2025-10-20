@@ -1,17 +1,32 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { HiMenu, HiX, HiSearch } from "react-icons/hi";
-import { FaShoppingBag, FaWhatsapp, FaMapMarkerAlt, FaUser } from "react-icons/fa";
+import { FaMapMarkerAlt, FaUser } from "react-icons/fa";
+
+// 🎨 Estilos por categoría tipo ficha clínica con efecto hover
+const getTabStyle = (name) => {
+  const base =
+    "transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:scale-[1.02] hover:border-l-[6px]";
+  const styles = {
+    "¿Qué es SuperFood?": `${base} bg-[#D4F4DD] border-l-4 border-green-400 hover:border-green-500`,
+    "SuperFood Prescripción": `${base} bg-[#DDEEFF] border-l-4 border-blue-400 hover:border-blue-500`,
+    "SuperFood Mantención": `${base} bg-[#FFF8D4] border-l-4 border-yellow-400 hover:border-yellow-500`,
+    "SuperFood Snack": `${base} bg-[#FFE4EC] border-l-4 border-pink-400 hover:border-pink-500`,
+    "Encuéntranos aquí": `${base} bg-[#E8D4FF] border-l-4 border-purple-400 hover:border-purple-500`,
+    Blog: `${base} bg-[#F0F0F0] border-l-4 border-gray-400 hover:border-gray-500`,
+  };
+  return styles[name] || `${base} bg-white border-l-4 border-gray-200 hover:border-gray-400`;
+};
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
   const links = [
-    { name: "SuperFood", href: "#superfood" },
-    { name: "Prescripción", href: "#prescripcion" },
-    { name: "Mantención", href: "#mantencion" },
-    { name: "Snack", href: "#snack" },
+    { name: "¿Qué es SuperFood?", href: "#superfood" },
+    { name: "SuperFood Prescripción", href: "#prescripcion" },
+    { name: "SuperFood Mantención", href: "#mantencion" },
+    { name: "SuperFood Snack", href: "#snack" },
     {
       name: "Encuéntranos aquí",
       href: "#encuentranos",
@@ -42,19 +57,19 @@ const Navbar = () => {
   };
 
   return (
-    <header className="bg-white shadow-md fixed top-0 left-0 w-full z-50 font-ceraroundblack font-black mt-2">
-      <div className="max-w-7xl mx-auto px-4 lg:px-8 flex items-center justify-between h-20 mb-4 pt-4">
+    <header className="bg-white shadow-md fixed top-0 left-0 w-full z-50 font-ceraroundblack font-black">
+      <div className="max-w-7xl mx-auto px-4 lg:px-8 flex items-center justify-between h-20 pt-4">
         {/* Logo */}
         <div className="flex items-center space-x-2">
           <Link to="/">
-            <img src="/img/Logo_G.png" alt="GEROLAMO" className="h-30 w-auto" />
+            <img src="/img/Logo_G.png" alt="GEROLAMO" className="h-28 w-auto" />
           </Link>
         </div>
 
         {/* 🔍 Barra de búsqueda (Desktop) */}
         <form
           onSubmit={handleSearch}
-          className="hidden md:flex items-center bg-gray-100 rounded-full px-3 py-1 focus-within:ring-2 focus-within:ring-[#EE66A2] transition-all duration-200 w-65"
+          className="hidden lg:flex items-center bg-gray-100 rounded-full px-3 py-1 focus-within:ring-2 focus-within:ring-[#EE66A2] transition-all duration-200 w-64"
         >
           <HiSearch className="text-gray-500 text-base" />
           <input
@@ -67,19 +82,21 @@ const Navbar = () => {
         </form>
 
         {/* Desktop Links + Login Icon */}
-        <div className="hidden md:flex items-center flex-1 justify-between ml-8">
-          <nav className="flex items-center space-x-4 text-gray-600 font-bold text-sm">
-            {links.map((link, index) => (
-              <div key={link.name} className="flex items-center space-x-1">
+        <div className="hidden lg:flex items-center flex-1 justify-between ml-8">
+          <nav className="flex items-center space-x-2 text- font-bold text-sm font-CeraRoundProBlack">
+            {links.map((link) => (
+              <div
+                key={link.name}
+                className={`rounded-md px-3 py-2 shadow-sm flex items-center ${getTabStyle(link.name)}`}
+              >
                 <a
                   href={link.href}
                   onClick={(e) => handleScroll(e, link.href)}
-                  className="hover:text-[#EE66A2] transition hover:text-lg font-black text-base flex items-center"
+                  className="flex items-center font-black text-sm"
                 >
                   {link.name}
-                  {link.icon && <span>{link.icon}</span>}
+                  {link.icon && <span className="ml-2">{link.icon}</span>}
                 </a>
-                {index < links.length - 1 && <Divider />}
               </div>
             ))}
           </nav>
@@ -96,7 +113,7 @@ const Navbar = () => {
 
         {/* Botón menú móvil */}
         <button
-          className="md:hidden text-gray-700 focus:outline-none"
+          className="lg:hidden text-gray-700 focus:outline-none"
           onClick={() => setOpen(!open)}
         >
           {open ? <HiX size={28} /> : <HiMenu size={28} />}
@@ -110,7 +127,7 @@ const Navbar = () => {
         }`}
       >
         <div className="flex items-center justify-between p-4 border-b">
-          <img src="/img/Logo_G.png" alt="GEROLAMO" className="h-22 w-auto" />
+          <img src="/img/Logo_G.png" alt="GEROLAMO" className="h-10 w-auto" />
           <button onClick={() => setOpen(false)}>
             <HiX size={26} />
           </button>
@@ -133,20 +150,23 @@ const Navbar = () => {
 
         <ul className="flex flex-col p-4 space-y-4 mt-4">
           {links.map((link) => (
-            <li key={link.name}>
+            <li
+              key={link.name}
+              className={`rounded-md px-4 py-2 shadow-sm ${getTabStyle(link.name)}`}
+            >
               <a
                 href={link.href}
                 onClick={(e) => handleScroll(e, link.href)}
-                className="flex items-center text-gray-500 hover:text-pink-600 font-black"
+                className="flex items-center text-gray-700 font-black"
               >
                 {link.name}
-                {link.icon && <span className="ml-1">{link.icon}</span>}
+                {link.icon && <span className="ml-2">{link.icon}</span>}
               </a>
             </li>
           ))}
 
           {/* 🔐 Ícono + texto de inicio de sesión (móvil) */}
-          <li>
+          <li className="rounded-md px-4 py-2 shadow-sm bg-[#FCE4EC] border-l-4 border-[#EE66A2] hover:border-pink-500 transition-all duration-300 hover:scale-[1.02]">
             <Link
               to="/login"
               onClick={() => setOpen(false)}
@@ -161,10 +181,5 @@ const Navbar = () => {
     </header>
   );
 };
-
-// Componente divisor vertical
-const Divider = () => (
-  <span className="h-6 w-px bg-[#19538B] mx-2"></span>
-);
 
 export default Navbar;
