@@ -83,7 +83,7 @@ const Navbar = () => {
 
         {/* Desktop Links + Login Icon */}
         <div className="hidden lg:flex items-center flex-1 justify-between ml-8">
-          <nav className="flex items-center space-x-2 text- font-bold text-sm font-CeraRoundProBlack">
+          <nav className="flex items-center space-x-2 text-gray-700 font-bold text-sm font-CeraRoundProBlack">
             {links.map((link) => (
               <div
                 key={link.name}
@@ -127,7 +127,7 @@ const Navbar = () => {
         }`}
       >
         <div className="flex items-center justify-between p-4 border-b">
-          <img src="/img/Logo_G.png" alt="GEROLAMO" className="h-10 w-auto" />
+          <img src="/img/Logo_G.png" alt="GEROLAMO" className="h-20 w-auto" />
           <button onClick={() => setOpen(false)}>
             <HiX size={26} />
           </button>
@@ -152,7 +152,7 @@ const Navbar = () => {
           {links.map((link) => (
             <li
               key={link.name}
-              className={`rounded-md px-4 py-2 shadow-sm ${getTabStyle(link.name)}`}
+              className={`rounded-md px-4 py-2 shadow-sm ${getTabStyle(link.name)} transition-transform duration-300 hover:translate-x-2 lg:hover:translate-x-0`}
             >
               <a
                 href={link.href}
@@ -166,7 +166,7 @@ const Navbar = () => {
           ))}
 
           {/* 🔐 Ícono + texto de inicio de sesión (móvil) */}
-          <li className="rounded-md px-4 py-2 shadow-sm bg-[#FCE4EC] border-l-4 border-[#EE66A2] hover:border-pink-500 transition-all duration-300 hover:scale-[1.02]">
+          <li className="rounded-md px-4 py-2 shadow-sm bg-[#FCE4EC] border-l-4 border-[#EE66A2] hover:border-pink-500 transition-all duration-300 hover:scale-[1.02] hover:translate-x-2 lg:hover:translate-x-0">
             <Link
               to="/login"
               onClick={() => setOpen(false)}
