@@ -6,7 +6,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 // 🎨 Estilos por categoría tipo ficha clínica
 const getTabStyle = (name) => {
   const base =
-    "transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:scale-[1.02] hover:border-l-[6px] rounded-full px-4 py-2 shadow-sm text-center flex justify-center items-center";
+    "transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:scale-[1.02] hover:border-l-[6px] rounded-full px-6 py-2 shadow-sm flex items-center justify-center text-center w-fit gap-2";
   const styles = {
     "¿Qué es un SuperFood?": `${base} bg-white border-l-4 border-grey-400 text-[#417ABD] font-black font-CeraRoundProBlack`,
     "SuperFood Prescripción": `${base} bg-white border-l-4 border-grey-400 text-[#417ABD] font-black font-CeraRoundProBlack`,
@@ -31,7 +31,6 @@ const Navbar = () => {
     {
       name: "Encuéntranos aquí",
       href: "#encuentranos",
-      icon: <FaMapMarkerAlt className="text-white ml-1" />,
     },
   ];
 
@@ -85,21 +84,18 @@ const Navbar = () => {
           <div className="bg-[#417ABD] rounded-full px-6 py-4 mt-12 shadow-inner flex justify-center items-center">
             <nav className="flex gap-x-2 text-gray-700 font-bold text-sm font-CeraRoundProBlack">
               {links.map((link) => (
-                <div key={link.name} className={getTabStyle(link.name)}>
-                  <a
-                    href={link.href}
-                    onClick={(e) => handleScroll(e, link.href)}
-                    className="flex items-center font-black text-sm"
-                  >
-                    {link.name}
-                    {link.icon ? (
-                      <span className="ml-1">{link.icon}</span>
-                    ) : (
-                      <span className="ml-0 invisible">icon</span>
-                    )}
-                  </a>
-                </div>
-              ))}
+            <div key={link.name} className={getTabStyle(link.name)}>
+            <a
+              href={link.href}
+              onClick={(e) => handleScroll(e, link.href)}
+              className="flex items-center justify-center font-black text-sm text-center"
+            >
+              {link.name}
+              {link.icon && <span className="ml-1">{link.icon}</span>}
+              </a>
+              </div>
+            ))}
+
             </nav>
           </div>
         </div>
