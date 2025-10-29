@@ -1,61 +1,53 @@
 import React from 'react'
 
-const Icon = ({ top, left, icon }) => (
-  <div
-    className='absolute w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-no-repeat bg-contain opacity-80'
+const Spot = () => (
+  <img
+    src="/dalmatian-spot.svg"
+    alt="Dalmatian spot"
+    className="absolute"
     style={{
-      top: `${top}%`,
-      left: `${left}%`,
-      backgroundImage: `url('/${icon}.svg')`,
-      filter: 'brightness(0) invert(1)',
+      top: '-5%',       // posición vertical fija
+      left: '-1%',      // posición horizontal fija
+      transform: 'rotate(0deg) scale(1)', // rotación y escala fijas
+      opacity: 0.5,
+      filter: 'grayscale(100%) brightness(1.8) contrast(0.8)', // efecto gris suave
+      filter: 'grayscale(100%) brightness(1.6) contrast(0.9)',
     }}
   />
 )
 
-const generateSpacedPositions = (count, minDistance = 15) => {
-  const positions = []
-
-  while (positions.length < count) {
-    const top = Math.random() * 80 + 10
-    const left = Math.random() * 80 + 10
-
-    const tooClose = positions.some((p) => {
-      const dx = p.left - left
-      const dy = p.top - top
-      const distance = Math.sqrt(dx * dx + dy * dy)
-      return distance < minDistance
-    })
-
-    if (!tooClose) {
-      positions.push({ top, left })
-    }
-  }
-
-  return positions
-}
-
 const Home = () => {
-  const totalIcons = 10
-  const positions = generateSpacedPositions(totalIcons, 20)
-
-  const icons = [
-    ...Array(3).fill('bone'),
-    ...Array(4).fill('dog'),
-    ...Array(3).fill('fish-bone'),
-  ]
-
-  const shuffledIcons = icons.sort(() => Math.random() - 0.5)
-
-  const items = positions.map((pos, i) => ({
-    ...pos,
-    icon: shuffledIcons[i],
-  }))
-
   return (
-    <div className='relative w-full h-[48rem] sm:h-[48rem] md:h-[48rem] ml-2 bg-[#417ABD] overflow-hidden mb-8 px-4 sm:px-6 md:px-0'>
-      {items.map((pos, i) => (
-        <Icon key={i} top={pos.top} left={pos.left} icon={pos.icon} />
-      ))}
+    <div className="relative w-full h-[44rem] bg-[#417ABD] overflow-hidden mb-10">
+
+      {/* Contenedor del texto + imagen */}
+      <div className="absolute top-[30%] left-[8%] flex items-center gap-10 text-white font-bold text-2xl z-10">
+
+        {/* Texto principal */}
+        <div>
+          <div className="flex gap-6 mb-3 ml-20">
+            <span className="bg-[#EE66A2] px-3 py-1 rounded-md font-medium">
+              NUEVA FÓRMULA
+            </span>
+            <span className="font-CeraRoundProRegular">
+              Renal | Hepat | Gastro | Derma
+            </span>
+          </div>
+          <h2 className="text-6xl font-bold font-CeraRoundProBlack leading-tight ml-20 ">
+            Prescripción Veterinaria
+          </h2>
+        </div>
+
+        {/* Imagen al lado derecho */}
+        <img
+          src="/dalmata.png" // ← reemplaza con tu imagen (por ejemplo: /dog.png)
+          alt="dalmata"
+          className="w-[350px] h-auto rounded-xl object-contain ml-65"
+        />
+      </div>
+
+      {/* Mancha fija */}
+      <Spot />
     </div>
   )
 }
