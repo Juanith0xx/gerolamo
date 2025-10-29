@@ -101,7 +101,7 @@ const Navbar = () => {
         </div>
 
         {/* Logo + Botón menú móvil */}
-        <div className="lg:hidden flex items-center justify-between mt-4 px-4">
+        <div className="lg:hidden flex items-center justify-between px-4">
           <Link to="/">
             <img src="/img/Logo_G.png" alt="GEROLAMO" className="h-32 w-auto" />
           </Link>
