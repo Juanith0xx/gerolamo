@@ -6,9 +6,9 @@ const Spot = () => (
     alt="Dalmatian spot"
     className="absolute max-md:hidden text-[#88A7CC]"
     style={{
-      top: '-5%',
-      left: '-1%',
-      transform: 'rotate(0deg) scale(1)',
+      top: '-28%',
+      left: '20%',
+      transform: 'rotate(0deg) scale(0.5)',
       opacity: 0.5,
     }}
   />
