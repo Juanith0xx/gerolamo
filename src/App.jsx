@@ -8,12 +8,14 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import './App.css';
+import WhatsAppBubble from "./components/WhatsappAppBubble";
 
 function App() {
   return (
     <div className="min-h-screen flex flex-col bg-white text-gray-800 font-ceraroundregular">
       {/* Barra de navegación fija */}
       <Navbar />
+      <WhatsAppBubble />
 
       {/* Contenido principal dinámico */}
       <main className="flex-grow">

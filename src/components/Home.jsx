@@ -1,41 +1,80 @@
-import React from 'react'
+import React from "react";
 
+// 🟣 Mancha decorativa visible en todas las vistas (ahora detrás del texto en móvil)
 const Spot = () => (
-  <img
-    src="/dalmatian-spot.svg"
-    alt="Dalmatian spot"
-    className="absolute max-md:hidden text-[#88A7CC]"
-    style={{
-      top: '-28%',
-      left: '20%',
-      transform: 'rotate(0deg) scale(0.5)',
-      opacity: 0.5,
-    }}
-  />
-)
+  <>
+    {/* Mancha principal (escritorio) */}
+    <img
+      src="/dalmatian-spot.svg"
+      alt="Dalmatian spot"
+      className="absolute text-[#88A7CC] hidden md:block z-0"
+      style={{
+        top: "-28%",
+        left: "20%",
+        transform: "rotate(0deg) scale(0.5)",
+        opacity: 0.5,
+      }}
+    />
+
+    {/* Mancha adaptada para móviles (detrás del texto) */}
+    <img
+      src="/dalmatian-spot.svg"
+      alt="Dalmatian spot mobile"
+      className="absolute md:hidden opacity-40 z-0"
+      style={{
+        top: "-10%",
+        left: "50%",
+        transform: "translateX(-50%) rotate(15deg) scale(0.3)",
+      }}
+    />
+  </>
+);
 
 const Home = () => {
   return (
     <div
       className="
         relative w-full bg-[#417ABD] overflow-hidden mb-10
-        h-[44rem] max-md:h-fit
+        h-[44rem]                /* Altura escritorio */
+        max-md:h-[32rem]         /* Altura en tablets */
+        max-sm:h-[26rem]         /* Altura más reducida en móviles */
+        flex flex-col items-center justify-center
       "
     >
-      {/* Contenedor del texto + imagen */}
+      {/* 🟣 Manchas decorativas visibles detrás del texto */}
+      <Spot />
+
+      {/* Contenedor del texto */}
       <div
         className="
           absolute top-[30%] left-[8%] flex items-center gap-10 text-white font-bold text-2xl z-10
-          max-md:relative max-md:flex-col max-md:top-0 max-md:left-0 max-md:gap-4 max-md:text-center max-md:p-6
+          max-md:relative max-md:flex-col max-md:items-center max-md:justify-center 
+          max-md:gap-4 max-md:top-0 max-md:left-0 max-md:text-center max-md:p-4
         "
       >
         {/* Texto principal */}
-        <div className="max-md:ml-0 w-full">
-          <div className="flex gap-6 mb-3 ml-20 max-md:ml-0 max-md:flex-col max-md:items-center max-md:gap-2">
-            <span className="bg-[#EE66A2] px-3 py-1 rounded-md font-medium text-base max-md:text-sm max-md:px-2 max-md:py-0.5">
+        <div className="w-full flex flex-col items-start max-md:items-center max-sm:mt-20 relative z-10">
+          <div
+            className="
+              flex gap-6 mb-3 ml-20 
+              max-md:ml-0 max-md:flex-col max-md:items-center max-md:gap-2
+            "
+          >
+            <span
+              className="
+                bg-[#EE66A2] px-3 py-1 rounded-md font-medium text-base 
+                max-md:text-sm max-sm:text-xs max-md:px-2 max-md:py-1
+              "
+            >
               NUEVA FÓRMULA
             </span>
-            <span className="font-CeraRoundProRegular text-lg max-md:text-base max-md:text-center">
+
+            <span
+              className="
+                font-CeraRoundProRegular text-lg max-md:text-base max-sm:text-sm 
+                max-md:text-center
+              "
+            >
               Renal | Hepat | Gastro | Derma
             </span>
           </div>
@@ -43,28 +82,26 @@ const Home = () => {
           <h2
             className="
               text-6xl font-bold font-CeraRoundProBlack leading-tight ml-20 
-              max-md:ml-0 max-md:text-4xl max-sm:text-3xl max-md:text-center max-md:leading-snug
+              max-md:ml-0 max-md:text-4xl max-sm:text-3xl 
+              max-md:text-center max-md:leading-snug
             "
           >
             Prescripción Veterinaria
           </h2>
         </div>
 
-        {/* Imagen al lado derecho */}
+        {/* Imagen solo en escritorio */}
         <img
           src="/dalmata.png"
-          alt="dalmata"
+          alt="dálmata"
           className="
             w-[350px] h-auto rounded-xl object-contain ml-65
-            max-md:relative max-md:ml-56 max-md:w-[250px] max-sm:w-[140px] max-md:mx-auto max-md:mt-0 max-md:mb-0
+            max-md:hidden
           "
         />
       </div>
-
-      {/* Mancha fija solo visible en escritorio */}
-      <Spot />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

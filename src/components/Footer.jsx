@@ -74,7 +74,7 @@ const Footer = () => {
                 href="#prescripcion"
                 className="hover:text-[#EE66A2] font-CeraRoundProRegular font-medium hover:underline hover:font-bold text-lg"
               >
-                Prescripción
+                SuperFood Prescripción
               </a>
             </li>
             <li>
@@ -82,7 +82,7 @@ const Footer = () => {
                 href="#mantencion"
                 className="hover:text-[#EE66A2] font-CeraRoundProRegular font-medium hover:underline hover:font-bold text-lg"
               >
-                Mantención
+                SuperFood Nutricion
               </a>
             </li>
             <li>
@@ -90,7 +90,7 @@ const Footer = () => {
                 href="#snack"
                 className="hover:text-[#EE66A2] font-CeraRoundProRegular font-medium hover:underline hover:font-bold text-lg"
               >
-                Snack
+                SuperFood Snack
               </a>
             </li>
             <li>
