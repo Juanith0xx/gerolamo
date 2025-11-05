@@ -32,7 +32,6 @@ const Footer = () => {
               </div>
               <div className="text-white">
                 <span className="font-bold font-CeraRoundProRegular">
-                  Dirección:{" "}
                 </span>
                 Laguna Sur Huingan Norte 9710, Bodega D21, Pudahuel, Santiago de
                 Chile
@@ -46,7 +45,6 @@ const Footer = () => {
               </div>
               <div>
                 <span className="font-bold font-CeraRoundProRegular">
-                  Email:{" "}
                 </span>
                 <a
                   href="mailto:info@gerolamo.cl"
@@ -64,7 +62,6 @@ const Footer = () => {
               </div>
               <div>
                 <span className="font-bold font-CeraRoundProRegular">
-                  Sitio web:{" "}
                 </span>
                 <a
                   href="https://www.gerolamo.cl"
@@ -84,7 +81,6 @@ const Footer = () => {
               </div>
               <div>
                 <span className="font-bold font-CeraRoundProRegular">
-                  Teléfono:{" "}
                 </span>
                 <a href="tel:+569XXXXXXX" className="hover:text-[#EE66A2]">
                   +569 XXXX XXXX
@@ -151,7 +147,7 @@ const Footer = () => {
           <img
             src="/img/Logo_N.png"
             alt="Distribuidor Exclusivo"
-            className="h-18 mb-4"
+            className="h-18 mb-4 invert brightness-0"
           />
 
           {/* Íconos de redes sociales */}
@@ -160,7 +156,7 @@ const Footer = () => {
               href="https://www.facebook.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#88A7CC] text-4xl  rounded-full bg-white p-2 hover:text-[#1877F2]"
+              className="text-[#1877F2] text-4xl  rounded-full bg-white p-2 hover:text-[#1877F2]"
             >
               <FaFacebookF />
             </a>
@@ -168,7 +164,7 @@ const Footer = () => {
               href="https://www.instagram.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#88A7CC] text-4xl rounded-full bg-white p-2 hover:text-[#E1306C]"
+              className="text-[#E1306C] text-4xl rounded-full bg-white p-2 hover:text-[#E1306C]"
             >
               <FaInstagram />
             </a>
@@ -176,7 +172,7 @@ const Footer = () => {
               href="https://www.youtube.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#88A7CC] text-4xl rounded-full bg-white p-2 hover:text-[#FF0000]"
+              className="text-[#FF0000] text-4xl rounded-full bg-white p-2 hover:text-[#FF0000]"
             >
               <FaYoutube />
             </a>
@@ -184,7 +180,7 @@ const Footer = () => {
               href="https://www.tiktok.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#88A7CC] text-4xl rounded-full bg-white p-2 hover:text-black"
+              className="text-black text-4xl rounded-full bg-white p-2 hover:text-black"
             >
               <FaTiktok />
             </a>
