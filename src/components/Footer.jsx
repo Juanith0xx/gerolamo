@@ -1,8 +1,9 @@
 // src/components/Footer.jsx
 import { FaFacebookF, FaInstagram, FaYoutube, FaTiktok } from "react-icons/fa";
-import { CiMail } from "react-icons/ci";
-import { FaLocationDot } from "react-icons/fa6";
 import { TbWorldCheck } from "react-icons/tb";
+import { LuPhoneCall } from "react-icons/lu";
+import { IoIosMail } from "react-icons/io";
+import { IoLocationOutline } from "react-icons/io5";
 
 const Footer = () => {
   return (
@@ -12,45 +13,81 @@ const Footer = () => {
         <div className="flex flex-col items-start">
           <img src="/img/Logo_GB.png" alt="GEROLAMO" className="h-22 mb-4" />
           <p className="text-base font-CeraRoundProLight leading-relaxed max-w-xs ml-2.5">
-            Creamos una familia de productos elaborados con ingredientes de la más alta calidad nacional.
+            Creamos una familia de productos elaborados con ingredientes de la
+            más alta calidad nacional.
           </p>
         </div>
 
-        {/* Sección central izquierda: Información */}
+        {/* Sección central izquierda: Información de contacto */}
         <div className="md:pl-4">
-          <h3 className="mt-5 text-white font-CeraRoundProBlack font-black text-lg mb-4 underline ">
-            Información de contacto
+            <h3 className="mt-5 text-white font-CeraRoundProBlack font-black text-lg mb-4 underline">
+              Información de contacto
           </h3>
-          <ul className="text-sm space-y-2">
-            <li className="flex items-start gap-2">
-              <FaLocationDot className="text-2xl text-[#EE66A2] mt-[2px]" />
-              <div>
-                <span className="font-bold font-CeraRoundProRegular">Dirección: </span>
-                Laguna Sur Huingan Norte 9710, Bodega D21, Pudahuel, Santiago de Chile
+
+          <ul className="text-sm space-y-3">
+            {/* Dirección */}
+            <li className="flex items-center gap-3">
+              <div className="bg-white rounded-full p-2 flex items-center justify-center">
+                <IoLocationOutline className="text-[#88A7CC] text-xl" />
+              </div>
+              <div className="text-white">
+                <span className="font-bold font-CeraRoundProRegular">
+                  Dirección:{" "}
+                </span>
+                Laguna Sur Huingan Norte 9710, Bodega D21, Pudahuel, Santiago de
+                Chile
               </div>
             </li>
 
-            <li className="flex items-center gap-2 pt-2">
-              <CiMail className=" font-black text-2xl text-[#EE66A2] mt-[2px]" />
+            {/* Email */}
+            <li className="flex items-center gap-3">
+              <div className="bg-white rounded-full p-2 flex items-center justify-center">
+                <IoIosMail className="text-[#88A7CC] text-xl" />
+              </div>
               <div>
-                <span className="font-bold font-CeraRoundProRegular">Email: </span>
-                <a href="mailto:info@gerolamo.cl" className="hover:text-[#EE66A2]">
+                <span className="font-bold font-CeraRoundProRegular">
+                  Email:{" "}
+                </span>
+                <a
+                  href="mailto:info@gerolamo.cl"
+                  className="hover:text-[#88A7CC]"
+                >
                   info@gerolamo.cl
                 </a>
               </div>
             </li>
 
-            <li className="flex items-center gap-2 pt-2">
-              <TbWorldCheck className="text-xl text-[#EE66A2] mt-[2px]" />
+            {/* Sitio web */}
+            <li className="flex items-center gap-3">
+              <div className="bg-white rounded-full p-2 flex items-center justify-center">
+                <TbWorldCheck className="text-[#88A7CC] text-xl" />
+              </div>
               <div>
-                <span className="font-bold font-CeraRoundProRegular">Sitio web: </span>
+                <span className="font-bold font-CeraRoundProRegular">
+                  Sitio web:{" "}
+                </span>
                 <a
                   href="https://www.gerolamo.cl"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-[#EE66A2]"
+                  className="hover:text-[#88A7CC]"
                 >
                   www.gerolamo.cl
+                </a>
+              </div>
+            </li>
+
+            {/* Teléfono */}
+            <li className="flex items-center gap-3">
+              <div className="bg-white rounded-full p-2 flex items-center justify-center">
+                <LuPhoneCall className="text-[#88A7CC] text-xl" />
+              </div>
+              <div>
+                <span className="font-bold font-CeraRoundProRegular">
+                  Teléfono:{" "}
+                </span>
+                <a href="tel:+569XXXXXXX" className="hover:text-[#EE66A2]">
+                  +569 XXXX XXXX
                 </a>
               </div>
             </li>
@@ -59,7 +96,9 @@ const Footer = () => {
 
         {/* Sección central derecha: Navegación */}
         <div className="md:pl-4">
-          <h3 className="mt-5 text-white underline font-black text-lg mb-4">Navegación</h3>
+          <h3 className="mt-5 text-white underline font-black text-lg mb-4">
+            Navegación
+          </h3>
           <ul className="text-sm space-y-2 mb-4">
             <li>
               <a
@@ -71,7 +110,7 @@ const Footer = () => {
             </li>
             <li>
               <a
-                href="#prescripcion"
+                href="#SuperFood_Prescripción"
                 className="hover:text-[#EE66A2] font-CeraRoundProRegular font-medium hover:underline hover:font-bold text-lg"
               >
                 SuperFood Prescripción
@@ -79,15 +118,15 @@ const Footer = () => {
             </li>
             <li>
               <a
-                href="#mantencion"
+                href="#SuperFood_Nutricion"
                 className="hover:text-[#EE66A2] font-CeraRoundProRegular font-medium hover:underline hover:font-bold text-lg"
               >
-                SuperFood Nutricion
+                SuperFood Nutrición
               </a>
             </li>
             <li>
               <a
-                href="#snack"
+                href="#SuperFood_Snack"
                 className="hover:text-[#EE66A2] font-CeraRoundProRegular font-medium hover:underline hover:font-bold text-lg"
               >
                 SuperFood Snack
@@ -121,7 +160,7 @@ const Footer = () => {
               href="https://www.facebook.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-[#1877F2] hover:text-3xl transition-colors text-xl"
+              className="text-[#88A7CC] text-4xl  rounded-full bg-white p-2 hover:text-[#1877F2]"
             >
               <FaFacebookF />
             </a>
@@ -129,7 +168,7 @@ const Footer = () => {
               href="https://www.instagram.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-[#E1306C] hover:text-3xl transition-colors text-xl"
+              className="text-[#88A7CC] text-4xl rounded-full bg-white p-2 hover:text-[#E1306C]"
             >
               <FaInstagram />
             </a>
@@ -137,7 +176,7 @@ const Footer = () => {
               href="https://www.youtube.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-[#FF0000] hover:text-3xl transition-colors text-xl"
+              className="text-[#88A7CC] text-4xl rounded-full bg-white p-2 hover:text-[#FF0000]"
             >
               <FaYoutube />
             </a>
@@ -145,7 +184,7 @@ const Footer = () => {
               href="https://www.tiktok.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-black hover:text-3xl transition-colors text-xl"
+              className="text-[#88A7CC] text-4xl rounded-full bg-white p-2 hover:text-black"
             >
               <FaTiktok />
             </a>
