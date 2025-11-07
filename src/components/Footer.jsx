@@ -114,10 +114,10 @@ const Footer = () => {
             </li>
             <li>
               <a
-                href="#SuperFood_Nutricion"
+                href="#SuperFood_Mantencion"
                 className="hover:text-[#EE66A2] font-CeraRoundProRegular font-medium hover:underline hover:font-bold text-lg"
               >
-                SuperFood Nutrición
+                SuperFood Mantención
               </a>
             </li>
             <li>
@@ -156,7 +156,7 @@ const Footer = () => {
               href="https://www.facebook.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#1877F2] text-4xl  rounded-full bg-white p-2 hover:text-[#1877F2]"
+              className="text-[#88A7CC] text-4xl  rounded-full bg-white p-4 hover:text-[#1877F2]"
             >
               <FaFacebookF />
             </a>
@@ -164,7 +164,7 @@ const Footer = () => {
               href="https://www.instagram.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#E1306C] text-4xl rounded-full bg-white p-2 hover:text-[#E1306C]"
+              className="text-[#88A7CC] text-4xl rounded-full bg-white p-4 hover:text-[#E1306C]"
             >
               <FaInstagram />
             </a>
@@ -172,7 +172,7 @@ const Footer = () => {
               href="https://www.youtube.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#FF0000] text-4xl rounded-full bg-white p-2 hover:text-[#FF0000]"
+              className="text-[#88A7CC] text-4xl rounded-full bg-white p-4 hover:text-[#FF0000]"
             >
               <FaYoutube />
             </a>
@@ -180,7 +180,7 @@ const Footer = () => {
               href="https://www.tiktok.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black text-4xl rounded-full bg-white p-2 hover:text-black"
+              className="text-[#88A7CC] text-4xl rounded-full bg-white p-4 hover:text-black"
             >
               <FaTiktok />
             </a>

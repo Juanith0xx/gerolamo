@@ -10,7 +10,7 @@ const getTabStyle = (name) => {
   const styles = {
     "¿Qué es un SuperFood?": `${base} bg-white border-l-4 border-grey-400 text-[#417ABD] font-black font-CeraRoundProBlack`,
     "SuperFood Prescripción": `${base} bg-white border-l-4 border-grey-400 text-[#417ABD] font-black font-CeraRoundProBlack`,
-    "SuperFood Nutrición": `${base} bg-white border-l-4 border-grey-400 text-[#417ABD] font-black font-CeraRoundProBlack`,
+    "SuperFood Mantención": `${base} bg-white border-l-4 border-grey-400 text-[#417ABD] font-black font-CeraRoundProBlack`,
     "SuperFood Snack": `${base} bg-white border-l-4 border-grey-400 text-[#417ABD] font-black font-CeraRoundProBlack`,
     "Blog": `${base} bg-[#417ABD] text-white font-black font-CeraRoundProBlack`,
     "Encuéntranos aquí": `${base} bg-[#EE66A2] border-l-4 border-[#EBBBE1] text-white font-black font-CeraRoundProBlack`,
@@ -25,7 +25,7 @@ const Navbar = () => {
   const links = [
     { name: "¿Qué es un SuperFood?", href: "#superfood" },
     { name: "SuperFood Prescripción", href: "#prescripcion" },
-    { name: "SuperFood Nutrición", href: "#nutricion" },
+    { name: "SuperFood Mantención", href: "#mantencion" },
     { name: "SuperFood Snack", href: "#snack" },
     { name: "Blog", href: "/blog" },
     {
