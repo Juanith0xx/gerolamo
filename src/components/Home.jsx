@@ -28,24 +28,24 @@ const Home = () => {
       {/* 🔹 Fondo animado con Framer Motion */}
       <AnimatePresence mode="wait">
         <motion.div
-          key={currentImage}
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{
-            opacity: 1,
-            scale:
-              currentImage === 0
-                ? 1
-                : currentImage === 1
-                ? 1
-                : 0.9,
-          }}
-          exit={{ opacity: 0, scale: 1.05 }}
-          transition={{ duration: 1.2, ease: "easeInOut" }}
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('${images[currentImage]}')`,
-          }}
-        />
+  key={currentImage}
+  initial={{ opacity: 0, scale: 1.1 }}
+  animate={{
+    opacity: 1,
+    scale: currentImage === 2 ? 0.9 : 1,
+  }}
+  exit={{ opacity: 0, scale: 1.05 }}
+  transition={{ duration: 1.2, ease: "easeInOut" }}
+  className={`absolute inset-0 bg-cover bg-no-repeat ${
+    currentImage === 0 ? 'bg-[center_30%]' :
+    currentImage === 1 ? 'bg-[center_50%]' :
+    'bg-[center_10%]'
+  }`}
+  style={{
+    backgroundImage: `url('${images[currentImage]}')`,
+  }}
+/>
+
       </AnimatePresence>
 
       {/* 🔹 Contenido específico para cada imagen */}
@@ -67,7 +67,7 @@ const Home = () => {
               text-left
             "
           >
-            <div className="flex flex-col items-start">
+            <div className="flex flex-col items-start mt-25">
               <div className="flex flex-col sm:flex-row gap-2 sm:gap-6 mb-4">
                 <span
                   className="
