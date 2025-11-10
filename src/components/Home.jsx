@@ -1,73 +1,171 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Home = () => {
+  const images = [
+    "/img/carrusel/imagen1.png",
+    "/img/carrusel/imagen2.png",
+    "/img/carrusel/Imagen3.png",
+  ];
+  const [currentImage, setCurrentImage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % images.length);
+    }, 8000);
+    return () => clearInterval(interval);
+  }, [images.length]);
+
   return (
     <div
       className="
         relative w-full overflow-hidden
         flex flex-col items-center justify-center
-        bg-cover bg-center bg-no-repeat
-        mt-14 sm:mt-20 md:mt-32
+        mt-14 sm:mt-20 md:mt-28
         h-[26rem] sm:h-[32rem] md:h-[40rem] lg:h-[44rem]
       "
-      style={{
-        backgroundImage: "url('/Dalma.png')",
-      }}
     >
-      {/* Contenedor del texto */}
-      <div
-        className="
-          absolute text-white font-bold z-10
-          flex flex-col md:flex-row items-center justify-between
-          gap-6 sm:gap-8 md:gap-12
-          top-[30%] left-[5%] right-[5%]
-          text-center md:text-left
-        "
-      >
-        {/* Texto principal */}
-        <div className="flex flex-col items-center md:items-center">
-          {/* Etiquetas superiores */}
-          <div
+      {/* 🔹 Fondo animado con Framer Motion */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentImage}
+          initial={{ opacity: 0, scale: 1.1 }}
+          animate={{
+            opacity: 1,
+            scale:
+              currentImage === 0
+                ? 1
+                : currentImage === 1
+                ? 1
+                : 0.9,
+          }}
+          exit={{ opacity: 0, scale: 1.05 }}
+          transition={{ duration: 1.2, ease: "easeInOut" }}
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('${images[currentImage]}')`,
+          }}
+        />
+      </AnimatePresence>
+
+      {/* 🔹 Contenido específico para cada imagen */}
+      <AnimatePresence mode="wait">
+        {/* Imagen 1: texto alineado a la izquierda */}
+        {currentImage === 0 && (
+          <motion.div
+            key="texto1"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -30 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             className="
-              flex flex-col sm:flex-row gap-3 sm:gap-6 mb-4
-              justify-center md:justify-start
+              absolute text-white font-bold z-10
+              flex flex-col items-start justify-center
+              gap-4 sm:gap-6
+              px-6 sm:px-10 md:px-16
+              top-[25%] left-[8%] md:top-[25%]
+              text-left
             "
           >
-            <span
-              className="
-                bg-[#EE66A2] px-3 sm:px-4 py-1 rounded-md font-medium
-                text-sm sm:text-base md:text-lg
-                mt-12
-              "
-            >
-              NUEVA FÓRMULA
-            </span>
+            <div className="flex flex-col items-start">
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-6 mb-4">
+                <span
+                  className="
+                    bg-[#EE66A2] px-3 sm:px-4 py-1 rounded-md font-medium
+                    text-xs sm:text-sm md:text-base
+                  "
+                >
+                  NUEVA FÓRMULA
+                </span>
 
-            <span
-              className="
-                font-CeraRoundProRegular
-                text-xs sm:text-sm md:text-base lg:text-lg
-                mt-13
-              "
-            >
-              Renal | Hepat | Gastro | Derma
-            </span>
-          </div>
+                <span
+                  className="
+                    font-CeraRoundProRegular
+                    text-[0.7rem] sm:text-sm md:text-base lg:text-lg
+                  "
+                >
+                  Renal | Hepat | Gastro | Derma
+                </span>
+              </div>
 
-          {/* Título */}
-          <h2
+              <h2
+                className="
+                  font-CeraRoundProBlack font-extrabold leading-tight
+                  text-2xl sm:text-4xl md:text-5xl lg:text-6xl
+                  max-w-[90%] md:max-w-[70%]
+                  whitespace-nowrap
+                "
+              >
+                Prescripción Veterinaria
+              </h2>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Imagen 2: solo botones con degradado */}
+        {currentImage === 1 && (
+          <motion.div
+            key="botones2"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 40 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             className="
-              font-CeraRoundProBlack font-extrabold leading-tight
-              text-3xl sm:text-4xl md:text-4xl lg:text-6xl
-              max-w-[90%] md:max-w-[80%]
-              whitespace-nowrap
-              ml-50
-              
+              absolute inset-0 flex flex-col items-center justify-center
+              z-20 gap-3 sm:gap-4 px-4
             "
           >
-            Prescripción Veterinaria
-          </h2>
-        </div>
+            {[
+              "¿Qué es un SuperFood?",
+              "SuperFood Prescripción",
+              "SuperFood Mantención",
+              "SuperFood Snack",
+            ].map((text, index) => (
+              <motion.button
+                key={index}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="
+                  bg-gradient-to-r from-[#EE66A2] to-[#F9A8D4]
+                  text-white font-semibold font-CeraRoundProRegular
+                  text-sm sm:text-base md:text-lg
+                  w-[80%] sm:w-[60%] md:w-[40%] lg:w-[25%]
+                  px-6 py-3 rounded-full shadow-lg
+                  hover:opacity-90 transition-all duration-300
+                "
+              >
+                {text}
+              </motion.button>
+            ))}
+          </motion.div>
+        )}
+
+        {/* Imagen 3: vacío (puedes agregar contenido futuro) */}
+        {currentImage === 2 && (
+          <motion.div
+            key="texto3"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0 flex items-center justify-center text-white"
+          >
+            {/* Contenido opcional */}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* 🔹 Indicadores del carrusel */}
+      <div className="absolute bottom-4 sm:bottom-6 flex gap-2 sm:gap-3 z-30">
+        {images.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentImage(index)}
+            className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
+              index === currentImage ? "bg-white" : "bg-white/40"
+            }`}
+          ></button>
+        ))}
       </div>
     </div>
   );
