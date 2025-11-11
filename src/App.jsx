@@ -7,8 +7,9 @@ import Blog from "./pages/Blog";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
-import './App.css';
 import WhatsAppBubble from "./components/WhatsappAppBubble";
+import FeedingCalculator from "./pages/FeedingCalculator";
+import './App.css';
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
 
           {/* Página de login */}
           <Route path="/login" element={<Login />} />
+
+          {/* Calculadora de alimentación */}
+          <Route path="/feeding-calculator" element={<FeedingCalculator />} />
 
           {/* Blog: solo veterinario y admin */}
           <Route
