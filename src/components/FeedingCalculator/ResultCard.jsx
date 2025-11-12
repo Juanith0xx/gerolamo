@@ -40,9 +40,9 @@ export default function ResultCard({ formData, restart }) {
       transition={{ duration: 0.5 }}
       className="bg-white p-6 rounded-lg shadow-lg max-w-xl mx-auto"
     >
-      <h2 className="text-2xl font-bold text-orange-600 mb-4">Resultado de alimentación</h2>
+      <h2 className="text-2xl font-bold !text-[#EE66A2] mb-4">Resultado de alimentación</h2>
 
-      <div className="space-y-2 text-gray-700">
+      <div className="space-y-2 text-gray-800">
         <p><strong>Tipo:</strong> {type === 'dog' ? 'Perro' : 'Gato'}</p>
         <p><strong>Nombre:</strong> {name}</p>
         <p><strong>Raza:</strong> {breed}</p>
