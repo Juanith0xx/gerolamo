@@ -8,18 +8,22 @@ export default function StepTracker({ step, petName = "tu mascota" }) {
 
   return (
     <div className="flex flex-col items-center mb-10 w-full">
-      <div className="flex justify-center items-center w-full max-w-4xl">
+      {/* Contenedor principal alineado */}
+      <div className="flex justify-between items-start w-full max-w-4xl relative">
         {steps.map((s, index) => {
           const current = index + 1;
           const isActive = step === current;
           const isCompleted = step > current;
 
           return (
-            <div key={index} className="flex flex-col items-center w-full relative">
+            <div
+              key={index}
+              className="flex flex-col items-center w-full relative pt-6"
+            >
               {/* Línea conectora */}
               {index !== 0 && (
                 <div
-                  className={`absolute top-4 left-[-50%] w-full h-[8px] ${
+                  className={`absolute top-11 left-[-50%] w-full h-[6px] ${
                     isCompleted ? "bg-[#417ABD]" : "bg-gray-300"
                   }`}
                 ></div>
@@ -39,7 +43,7 @@ export default function StepTracker({ step, petName = "tu mascota" }) {
               </div>
 
               {/* Texto del paso */}
-              <div className="flex flex-col items-center mt-2 text-center ">
+              <div className="flex flex-col items-center mt-2 text-center">
                 <span
                   className={`text-xs uppercase font-semibold font-CeraRoundProLight tracking-wide ${
                     isActive ? "text-[#EE66A2]" : "text-gray-500"
