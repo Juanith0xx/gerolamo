@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { FaBone, FaMars, FaVenus } from "react-icons/fa";
-import { GiFishbone } from "react-icons/gi";
+import { GiCat } from "react-icons/gi";
+import { TbCat } from "react-icons/tb";
 
 export default function Step1PetDetails({ formData, setFormData, nextStep }) {
   const [selectedType, setSelectedType] = useState(formData.type || "");
@@ -79,7 +80,7 @@ export default function Step1PetDetails({ formData, setFormData, nextStep }) {
               transition={{ duration: 0.3 }}
               className="flex items-center justify-center w-12 sm:w-16 h-12 sm:h-16 rounded-full shadow-md mb-2"
             >
-              <GiFishbone
+              <TbCat
                 className={`text-2xl sm:text-3xl ${selectedType === "cat" ? "text-white" : "text-gray-500"}`}
               />
             </motion.div>
