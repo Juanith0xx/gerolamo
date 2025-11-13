@@ -1,9 +1,15 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
+import { FaRunning, FaBaby, FaDog, FaHeart, FaFemale } from "react-icons/fa";
+import { MdOutlinePets } from "react-icons/md";
+import { GiSittingDog } from "react-icons/gi";
 
 export default function Step3ActivityLifestage({ formData, setFormData, nextStep, prevStep }) {
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  const handleSelectActivity = (activity) => {
+    setFormData((prev) => ({ ...prev, activity }));
+  };
+
+  const handleSelectLifestage = (lifestage) => {
+    setFormData((prev) => ({ ...prev, lifestage }));
   };
 
   return (
@@ -12,54 +18,124 @@ export default function Step3ActivityLifestage({ formData, setFormData, nextStep
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -50 }}
       transition={{ duration: 0.4 }}
-      className="bg-white p-6 rounded-lg shadow-md max-w-xl mx-auto"
+      className="bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-md max-w-3xl w-full mx-auto font-ceraroundregular"
     >
-      <h2 className="text-2xl font-semibold mb-4 text-orange-600">Paso 3: Actividad y etapa de vida</h2>
+      <h2 className="text-xl sm:text-2xl font-bold mb-4 text-[#EE66A2] text-center">
+        Actividad y etapa de vida
+      </h2>
 
       {/* Nivel de actividad */}
-      <div className="mb-4">
-        <label className="block mb-1 font-medium">Nivel de actividad</label>
-        <select
-          name="activity"
-          value={formData.activity || ''}
-          onChange={handleChange}
-          className="w-full border px-4 py-2 rounded-md"
-        >
-          <option value="">Selecciona</option>
-          <option value="low">Baja</option>
-          <option value="moderate">Moderada</option>
-          <option value="high">Alta</option>
-        </select>
+      <div className="mb-8">
+        <label className="block mb-2 font-medium text-center text-gray-800">
+          Nivel de actividad
+        </label>
+        <div className="flex justify-around items-center gap-2 sm:gap-4 flex-wrap">
+          {[
+            {
+              key: "low",
+              icon: <GiSittingDog />,
+              label: "Baja",
+            },
+            {
+              key: "moderate",
+              icon: <MdOutlinePets />,
+              label: "Moderada",
+            },
+            {
+              key: "high",
+              icon: <FaRunning />,
+              label: "Alta",
+            },
+          ].map(({ key, icon, label }) => (
+            <div
+              key={key}
+              onClick={() => handleSelectActivity(key)}
+              className="flex flex-col items-center cursor-pointer select-none text-center max-w-[110px]"
+            >
+              <motion.div
+                animate={{
+                  backgroundColor: formData.activity === key ? "#F472B6" : "#e5e7eb",
+                  scale: formData.activity === key ? 1.1 : 1,
+                }}
+                transition={{ duration: 0.3 }}
+                className="flex items-center justify-center w-14 sm:w-20 h-14 sm:h-20 rounded-full shadow-md mb-2"
+              >
+                <div
+                  className={`text-3xl sm:text-4xl ${
+                    formData.activity === key ? "text-white" : "text-gray-500"
+                  }`}
+                >
+                  {icon}
+                </div>
+              </motion.div>
+              <span
+                className={`font-medium ${
+                  formData.activity === key ? "text-[#F472B6]" : "text-gray-700"
+                }`}
+              >
+                {label}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Etapa de vida */}
-      <div className="mb-6">
-        <label className="block mb-1 font-medium">Etapa de vida</label>
-        <select
-          name="lifestage"
-          value={formData.lifestage || ''}
-          onChange={handleChange}
-          className="w-full border px-4 py-2 rounded-md"
-        >
-          <option value="">Selecciona</option>
-          <option value="puppy">Cachorro</option>
-          <option value="adult">Adulto</option>
-          <option value="senior">Senior</option>
-          <option value="gestation">Gestación/Lactancia</option>
-        </select>
+      <div className="mb-8">
+        <label className="block mb-2 font-medium text-center text-gray-800">
+          Etapa de vida
+        </label>
+        <div className="flex justify-around items-center gap-2 sm:gap-4 flex-wrap">
+          {[
+            { key: "puppy", icon: <FaBaby />, label: "Cachorro" },
+            { key: "adult", icon: <FaDog />, label: "Adulto" },
+            { key: "senior", icon: <FaHeart />, label: "Senior" },
+            { key: "gestation", icon: <FaFemale />, label: "Gestación / Lactancia" },
+          ].map(({ key, icon, label }) => (
+            <div
+              key={key}
+              onClick={() => handleSelectLifestage(key)}
+              className="flex flex-col items-center cursor-pointer select-none text-center max-w-[110px]"
+            >
+              <motion.div
+                animate={{
+                  backgroundColor: formData.lifestage === key ? "#F472B6" : "#e5e7eb",
+                  scale: formData.lifestage === key ? 1.1 : 1,
+                }}
+                transition={{ duration: 0.3 }}
+                className="flex items-center justify-center w-14 sm:w-20 h-14 sm:h-20 rounded-full shadow-md mb-2"
+              >
+                <div
+                  className={`text-3xl sm:text-4xl ${
+                    formData.lifestage === key ? "text-white" : "text-gray-500"
+                  }`}
+                >
+                  {icon}
+                </div>
+              </motion.div>
+              <span
+                className={`font-medium ${
+                  formData.lifestage === key ? "text-[#F472B6]" : "text-gray-700"
+                }`}
+              >
+                {label}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Navegación */}
-      <div className="flex justify-between">
+      <div className="flex justify-between mt-6">
         <button
           onClick={prevStep}
-          className="bg-gray-300 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-400 transition"
+          className="bg-[#417ABD] text-white font-medium px-6 py-2 rounded-xl font-ceraroundregular"
         >
           Atrás
         </button>
         <button
           onClick={nextStep}
-          className="bg-orange-500 text-white px-6 py-2 rounded-md hover:bg-orange-600 transition"
+          className="bg-[#F472B6] text-white font-medium items-center px-6 sm:px-8 py-2 sm:py-3 rounded-xl font-ceraroundregular"
         >
           Siguiente
         </button>
