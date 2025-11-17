@@ -1,59 +1,43 @@
 // src/App.jsx
 import { Routes, Route } from "react-router-dom";
-import Navbar from './components/Navbar';
-import Home from './components/Home';
-import Footer from './components/Footer';
+import PublicLayout from "./layout/PublicLayout";
+import AdminLayout from "./layout/AdminLayout";
+import ProtectedRoute from "./components/ProtectedRoute";
+import WhatsAppBubble from "./components/WhatsappAppBubble";
+
+import Home from "./components/Home";
 import Blog from "./pages/Blog";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
-import ProtectedRoute from "./components/ProtectedRoute";
-import WhatsAppBubble from "./components/WhatsappAppBubble";
 import FeedingCalculator from "./pages/FeedingCalculator";
-import './App.css';
+
+import "./App.css";
 
 function App() {
   return (
     <div className="min-h-screen flex flex-col bg-white text-gray-800 font-ceraroundregular">
-      {/* Barra de navegación fija */}
-      <Navbar />
       <WhatsAppBubble />
 
-      {/* Contenido principal dinámico */}
-      <main className="flex-grow">
-        <Routes>
-          {/* Página principal */}
+      <Routes>
+        {/* Layout público */}
+        <Route element={<PublicLayout />}>
           <Route path="/" element={<Home />} />
-
-          {/* Página de login */}
           <Route path="/login" element={<Login />} />
-
-          {/* Calculadora de alimentación */}
           <Route path="/feeding-calculator" element={<FeedingCalculator />} />
+          <Route path="/blog" element={<Blog />} /> {/* Blog público */}
+        </Route>
 
-          {/* Blog: solo veterinario y admin */}
-          <Route
-            path="/blog"
-            element={
-              <ProtectedRoute roles={["veterinario", "admin"]}>
-                <Blog />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Dashboard: solo admin */}
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute roles={["admin"]}>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </main>
-
-      {/* Pie de página */}
-      <Footer />
+        {/* Layout admin */}
+        <Route
+          element={
+            <ProtectedRoute roles={["admin"]}>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+      </Routes>
     </div>
   );
 }

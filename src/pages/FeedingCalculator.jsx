@@ -40,7 +40,7 @@ export default function FeedingCalculator() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-6 sm:px-8 mt-50">
+    <div className="min-h-screen bg-gray-50 py-10 px-6 sm:px-8 pt-28">
       {/* 🔹 Tracker visual de pasos */}
       {step >= 1 && step <= 4 && (
         <StepTracker step={step} />

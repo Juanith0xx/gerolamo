@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-  const [pendingPosts, setPendingPosts] = useState([]); // Posts nuevos pendientes
-  const [allPosts, setAllPosts] = useState([]); // Todos los posts creados
+  const [pendingPosts, setPendingPosts] = useState([]);
+  const [allPosts, setAllPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -11,8 +12,8 @@ const Dashboard = () => {
   const [editContent, setEditContent] = useState("");
 
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
-  // Obtener posts pendientes
   const fetchPendingPosts = async () => {
     try {
       const res = await fetch("http://localhost:5000/api/posts/pending", {
@@ -20,35 +21,39 @@ const Dashboard = () => {
       });
       const data = await res.json();
       setPendingPosts(data);
-    } catch (err) {
+    } catch {
       setError("Error cargando posts pendientes");
     }
   };
 
-  // Obtener todos los posts (aprobados y pendientes)
   const fetchAllPosts = async () => {
     try {
       const res = await fetch("http://localhost:5000/api/posts/approved", {
-        headers: { Authorization: `Bearer ${token}` }, // opcional si es público
+        headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
       setAllPosts(data);
-    } catch (err) {
-      setError("Error cargando todos los posts");
+    } catch {
+      setError("Error cargando posts aprobados");
     }
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    const load = async () => {
       setLoading(true);
       await fetchPendingPosts();
       await fetchAllPosts();
       setLoading(false);
     };
-    fetchData();
+    load();
   }, []);
 
-  // Aprobar y rechazar posts
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/");
+  };
+
   const approvePost = async (id) => {
     await fetch(`http://localhost:5000/api/posts/approve/${id}`, {
       method: "PATCH",
@@ -67,7 +72,6 @@ const Dashboard = () => {
     fetchAllPosts();
   };
 
-  // Editar posts existentes
   const startEdit = (post) => {
     setEditPostId(post._id);
     setEditTitle(post.title);
@@ -83,7 +87,10 @@ const Dashboard = () => {
   const saveEdit = async () => {
     await fetch(`http://localhost:5000/api/posts/${editPostId}`, {
       method: "PUT",
-      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ title: editTitle, content: editContent }),
     });
     cancelEdit();
@@ -100,113 +107,187 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
-      <h2 className="text-3xl font-extrabold mb-6 text-gray-800">Dashboard de Administración</h2>
+    <div className="min-h-screen flex flex-col bg-[#f8e9e9]">
 
-      {loading && <p className="text-blue-500 text-lg">Cargando posts...</p>}
-      {error && <p className="text-red-500 text-lg">{error}</p>}
+      {/* ------------------------------ HEADER SUPERIOR ------------------------------ */}
+      <header className="w-full flex justify-between items-center px-8 py-4 bg-white shadow-md fixed top-0 z-50">
+        <h2 className="text-xl font-bold text-gray-700 hidden md:block">
+          Scribble Dashboard
+        </h2>
 
-      <div className="flex flex-col md:flex-row gap-6">
-        {/* Lado izquierdo: posts existentes (editar/eliminar) */}
-        <div className="flex-1">
-          <h3 className="text-2xl font-semibold mb-4 mt-12">Posts Creados</h3>
-          <div className="grid gap-4">
-            {allPosts.length === 0 && <p className="text-gray-500">No hay posts existentes.</p>}
-            {allPosts.map((post) => (
-              <div
-                key={post._id}
-                className="relative bg-white shadow-lg rounded-xl p-5 hover:shadow-2xl transition-all border border-gray-200"
-              >
-                <div className="absolute top-3 right-3 flex gap-2">
-                  <button
-                    onClick={() => startEdit(post)}
-                    className="bg-yellow-400 text-white px-3 py-1 rounded-full hover:bg-yellow-500"
+        <div className="flex items-center gap-4">
+
+          {/* CÍRCULO USUARIO */}
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#ff907a] to-[#ffb7a5] flex items-center justify-center shadow-md">
+            <span className="text-white text-xl font-bold">U</span>
+          </div>
+
+          {/* BOTÓN LOGOUT */}
+          <button
+            onClick={logout}
+            className="px-4 py-2 bg-red-500 text-white rounded-xl shadow hover:bg-red-600 transition"
+          >
+            Cerrar sesión
+          </button>
+        </div>
+      </header>
+
+      {/* ------------------------------ CONTENEDOR GENERAL ------------------------------ */}
+      <div className="flex flex-1 mt-24">
+
+        {/* ------------------------------ SIDEBAR ------------------------------ */}
+        <aside className="hidden md:block w-64 bg-gradient-to-b from-[#ff907a] to-[#ffb7a5] text-white p-8 rounded-r-3xl shadow-xl">
+          <h2 className="text-3xl font-bold tracking-wide mb-10">Scribble.</h2>
+
+          <nav className="flex flex-col gap-6 text-lg font-medium">
+            <p className="opacity-90 hover:opacity-100 cursor-pointer">Dashboard</p>
+            <p className="opacity-90 hover:opacity-100 cursor-pointer">Posts</p>
+            <p className="opacity-90 hover:opacity-100 cursor-pointer">Usuarios</p>
+            <p className="opacity-90 hover:opacity-100 cursor-pointer">Media</p>
+            <p className="opacity-90 hover:opacity-100 cursor-pointer">Settings</p>
+          </nav>
+
+          <div className="mt-20 bg-white/20 p-4 rounded-xl">
+            <p>User Guide</p>
+          </div>
+        </aside>
+
+        {/* ------------------------------ MAIN CONTENT ------------------------------ */}
+        <main className="flex-1 p-6 md:p-10">
+
+          <h1 className="text-3xl font-bold text-gray-800">Dashboard del Administrador</h1>
+          <p className="text-gray-500 mt-1">Bienvenido al panel de control ✨</p>
+
+          {/* ESTADÍSTICAS */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+            <div className="bg-white shadow-md p-6 rounded-xl border border-gray-100">
+              <h3 className="text-gray-600 text-sm">Posts totales</h3>
+              <p className="text-3xl font-bold text-[#ff6f61]">{allPosts.length}</p>
+            </div>
+
+            <div className="bg-white shadow-md p-6 rounded-xl border border-gray-100">
+              <h3 className="text-gray-600 text-sm">Pendientes</h3>
+              <p className="text-3xl font-bold text-[#ff6f61]">{pendingPosts.length}</p>
+            </div>
+
+            <div className="bg-white shadow-md p-6 rounded-xl border border-gray-100">
+              <h3 className="text-gray-600 text-sm">Activos</h3>
+              <p className="text-3xl font-bold text-[#ff6f61]">
+                {allPosts.length - pendingPosts.length}
+              </p>
+            </div>
+          </div>
+
+          {/* POST LISTS */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-10">
+
+            {/* ------ POSTS CREADOS ------ */}
+            <div>
+              <h2 className="text-2xl font-bold mb-4 text-gray-700">Posts Creados</h2>
+
+              <div className="grid gap-4">
+                {allPosts.map((post) => (
+                  <div
+                    key={post._id}
+                    className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-lg transition"
                   >
-                    ✎
-                  </button>
-                  <button
-                    onClick={() => deletePost(post._id)}
-                    className="bg-gray-600 text-white px-3 py-1 rounded-full hover:bg-gray-700"
-                  >
-                    🗑
-                  </button>
-                </div>
+                    {editPostId === post._id ? (
+                      <div className="flex flex-col gap-2">
+                        <input
+                          value={editTitle}
+                          onChange={(e) => setEditTitle(e.target.value)}
+                          className="border p-2 rounded-xl"
+                        />
 
-                {editPostId === post._id ? (
-                  <div className="flex flex-col gap-2">
-                    <input
-                      value={editTitle}
-                      onChange={(e) => setEditTitle(e.target.value)}
-                      className="border p-2 rounded"
-                    />
-                    <textarea
-                      value={editContent}
-                      onChange={(e) => setEditContent(e.target.value)}
-                      className="border p-2 rounded"
-                    />
-                    <div className="flex gap-2 mt-2">
+                        <textarea
+                          value={editContent}
+                          onChange={(e) => setEditContent(e.target.value)}
+                          className="border p-2 rounded-xl"
+                        />
+
+                        <div className="flex gap-2">
+                          <button
+                            onClick={saveEdit}
+                            className="bg-green-500 text-white px-4 py-2 rounded-xl"
+                          >
+                            Guardar
+                          </button>
+
+                          <button
+                            onClick={cancelEdit}
+                            className="bg-gray-400 text-white px-4 py-2 rounded-xl"
+                          >
+                            Cancelar
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        <h3 className="font-bold text-lg text-gray-800">{post.title}</h3>
+                        <p className="text-gray-600 mt-1">{post.content}</p>
+                        <p className="text-sm text-gray-400 mt-2">Autor: {post.author}</p>
+
+                        <div className="mt-4 flex gap-2">
+                          <button
+                            onClick={() => startEdit(post)}
+                            className="bg-yellow-500 text-white px-4 py-1 rounded-xl"
+                          >
+                            ✎
+                          </button>
+
+                          <button
+                            onClick={() => deletePost(post._id)}
+                            className="bg-red-500 text-white px-4 py-1 rounded-xl"
+                          >
+                            🗑
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ------ POSTS PENDIENTES ------ */}
+            <div>
+              <h2 className="text-2xl font-bold mb-4 text-gray-700">Posts Pendientes</h2>
+
+              <div className="grid gap-4">
+                {pendingPosts.map((post) => (
+                  <div
+                    key={post._id}
+                    className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-lg transition"
+                  >
+                    <h3 className="font-bold text-lg text-gray-800">{post.title}</h3>
+                    <p className="text-gray-600 mt-1">{post.content}</p>
+                    <p className="text-sm text-gray-400 mt-2">Autor: {post.author}</p>
+
+                    <div className="mt-4 flex gap-2">
                       <button
-                        onClick={saveEdit}
-                        className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                        onClick={() => approvePost(post._id)}
+                        className="bg-green-500 text-white px-4 py-1 rounded-xl"
                       >
-                        Guardar
+                        ✓
                       </button>
                       <button
-                        onClick={cancelEdit}
-                        className="bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-600"
+                        onClick={() => rejectPost(post._id)}
+                        className="bg-red-500 text-white px-4 py-1 rounded-xl"
                       >
-                        Cancelar
+                        ✕
                       </button>
                     </div>
                   </div>
-                ) : (
-                  <>
-                    <h4 className="font-bold text-lg text-gray-800 mb-1">{post.title}</h4>
-                    <p className="text-gray-700 mb-2">{post.content}</p>
-                    <p className="text-sm text-gray-500">Autor: {post.author}</p>
-                  </>
-                )}
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
 
-        {/* Lado derecho: posts pendientes (aprobar/rechazar) */}
-        <div className="w-full md:w-96 mt-12">
-          <h3 className="text-2xl font-semibold mb-4">Posts Pendientes</h3>
-          <div className="grid gap-4">
-            {pendingPosts.length === 0 && <p className="text-gray-500">No hay posts pendientes.</p>}
-            {pendingPosts.map((post) => (
-              <div
-                key={post._id}
-                className="relative bg-white shadow-lg rounded-xl p-5 hover:shadow-2xl transition-all border border-gray-200"
-              >
-                <div className="absolute top-3 right-3 flex gap-2">
-                  <button
-                    onClick={() => approvePost(post._id)}
-                    className="bg-green-500 text-white px-3 py-1 rounded-full hover:bg-green-600"
-                  >
-                    ✓
-                  </button>
-                  <button
-                    onClick={() => rejectPost(post._id)}
-                    className="bg-red-500 text-white px-3 py-1 rounded-full hover:bg-red-600"
-                  >
-                    ✕
-                  </button>
-                </div>
+            </div>
 
-                <h4 className="font-bold text-lg text-gray-800 mb-1">{post.title}</h4>
-                <p className="text-gray-700 mb-2">{post.content}</p>
-                <p className="text-sm text-gray-500">Autor: {post.author}</p>
-              </div>
-            ))}
           </div>
-        </div>
+        </main>
       </div>
     </div>
   );
 };
 
 export default Dashboard;
-

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { HiMenu, HiX, HiSearch } from "react-icons/hi";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 
 // 🎨 Estilos por categoría tipo ficha clínica
 const getTabStyle = (name) => {
@@ -27,11 +27,8 @@ const Navbar = () => {
     { name: "SuperFood Prescripción", href: "#prescripcion" },
     { name: "SuperFood Mantención", href: "#mantencion" },
     { name: "SuperFood Snack", href: "#snack" },
-    { name: "Blog", href: "/blog" },
-    {
-      name: "Encuéntranos aquí",
-      href: "#encuentranos",
-    },
+    { name: "Blog", href: "/blog" }, // Público
+    { name: "Encuéntranos aquí", href: "#encuentranos" },
   ];
 
   const handleScroll = (e, href) => {
@@ -60,7 +57,6 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-4">
         {/* Desktop layout */}
         <div className="hidden lg:flex items-start justify-between mb-4">
-          {/* Logo + Buscador alineados verticalmente a la izquierda */}
           <div className="flex flex-col w-64">
             <Link to="/">
               <img src="/img/Logo_G.png" alt="GEROLAMO" className="h-28 w-auto" />
@@ -80,27 +76,66 @@ const Navbar = () => {
             </form>
           </div>
 
-          {/* Tabs dentro de óvalo azul */}
           <div className="bg-[#417ABD] rounded-full px-6 py-4 mt-12 shadow-inner flex justify-center items-center">
-            <nav className="flex gap-x-2 text-gray-700 font-bold text-sm font-CeraRoundProBlack">
-              {links.map((link) => (
-            <div key={link.name} className={getTabStyle(link.name)}>
-            <a
-              href={link.href}
-              onClick={(e) => handleScroll(e, link.href)}
-              className="flex items-center justify-center font-black text-sm text-center"
-            >
-              {link.name}
-              {link.icon && <span className="ml-1">{link.icon}</span>}
-              </a>
-              </div>
-            ))}
-
+            <nav className="flex gap-x-2 text-gray-700 font-bold text-sm font-CeraRoundProBlack items-center">
+              {links.map((link) => {
+                if (link.name === "Encuéntranos aquí") {
+                  return (
+                    <div key={link.name} className="flex items-center gap-3">
+                      <div className={getTabStyle(link.name)}>
+                        {link.href.startsWith("/") ? (
+                          <Link
+                            to={link.href}
+                            className="flex items-center justify-center font-black text-sm text-center"
+                          >
+                            {link.name}
+                          </Link>
+                        ) : (
+                          <a
+                            href={link.href}
+                            onClick={(e) => handleScroll(e, link.href)}
+                            className="flex items-center justify-center font-black text-sm text-center"
+                          >
+                            {link.name}
+                          </a>
+                        )}
+                      </div>
+                      <Link
+                        to="/login"
+                        className="w-12 h-12 rounded-full flex items-center justify-center bg-white shadow-md cursor-pointer hover:bg-gray-100 overflow-hidden"
+                      >
+                        <FaUser className="text-[#417ABD] text-lg" />
+                      </Link>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div key={link.name} className={getTabStyle(link.name)}>
+                      {link.href.startsWith("/") ? (
+                        <Link
+                          to={link.href}
+                          className="flex items-center justify-center font-black text-sm text-center"
+                        >
+                          {link.name}
+                        </Link>
+                      ) : (
+                        <a
+                          href={link.href}
+                          onClick={(e) => handleScroll(e, link.href)}
+                          className="flex items-center justify-center font-black text-sm text-center"
+                        >
+                          {link.name}
+                        </a>
+                      )}
+                    </div>
+                  );
+                }
+              })}
             </nav>
           </div>
         </div>
 
-        {/* Logo + Botón menú móvil */}
+        {/* Mobile layout */}
         <div className="lg:hidden flex items-center justify-between px-4">
           <Link to="/">
             <img src="/img/Logo_G.png" alt="GEROLAMO" className="h-32 w-auto" />
@@ -114,7 +149,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Menú móvil deslizante desde la izquierda */}
+      {/* Mobile menu */}
       <div
         className={`lg:hidden fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-50 transform transition-transform duration-300 ${
           open ? "translate-x-0" : "-translate-x-full"
@@ -129,7 +164,16 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Buscador en menú móvil */}
+        <Link
+          to="/login"
+          className="flex items-center gap-3 px-6 py-6 border-b cursor-pointer hover:bg-gray-100"
+        >
+          <div className="w-14 h-14 rounded-full flex items-center justify-center bg-white shadow-md overflow-hidden">
+            <FaUser className="text-[#417ABD] text-lg" />
+          </div>
+          <span className="font-bold text-[#417ABD] text-sm">Iniciar sesión</span>
+        </Link>
+
         <form
           onSubmit={handleSearch}
           className="mt-4 mx-4 flex items-center bg-gray-100 rounded-full px-4 py-2 focus-within:ring-2 focus-within:ring-[#EE66A2]"
@@ -144,19 +188,27 @@ const Navbar = () => {
           />
         </form>
 
-        {/* Tabs móviles */}
         <nav className="flex flex-col space-y-2 px-4 py-6">
-          {links.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={(e) => handleScroll(e, link.href)}
-              className="bg-[#417ABD] text-white rounded-full px-4 py-2 font-bold text-sm font-CeraRoundProBlack transition hover:bg-[#2f5f9e] flex justify-center items-center"
-            >
-              {link.name}
-              {link.icon && <span className="ml-2">{link.icon}</span>}
-            </a>
-          ))}
+          {links.map((link) =>
+            link.href.startsWith("/") ? (
+              <Link
+                key={link.name}
+                to={link.href}
+                className="bg-[#417ABD] text-white rounded-full px-4 py-2 font-bold text-sm font-CeraRoundProBlack transition hover:bg-[#2f5f9e] flex justify-center items-center"
+              >
+                {link.name}
+              </Link>
+            ) : (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={(e) => handleScroll(e, link.href)}
+                className="bg-[#417ABD] text-white rounded-full px-4 py-2 font-bold text-sm font-CeraRoundProBlack transition hover:bg-[#2f5f9e] flex justify-center items-center"
+              >
+                {link.name}
+              </a>
+            )
+          )}
         </nav>
       </div>
     </header>

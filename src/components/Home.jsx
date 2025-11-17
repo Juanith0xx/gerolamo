@@ -37,7 +37,7 @@ const Home = () => {
   exit={{ opacity: 0, scale: 1.05 }}
   transition={{ duration: 1.2, ease: "easeInOut" }}
   className={`absolute inset-0 bg-cover bg-no-repeat ${
-    currentImage === 0 ? 'bg-[center_30%]' :
+    currentImage === 0 ? 'bg-[center_50%]' :
     currentImage === 1 ? 'bg-[center_50%]' :
     'bg-[center_10%]'
   }`}
@@ -63,11 +63,11 @@ const Home = () => {
               flex flex-col items-start justify-center
               gap-4 sm:gap-6
               px-6 sm:px-10 md:px-16
-              top-[25%] left-[8%] md:top-[25%]
+              top-[25%] left-[8%] md:top-[10%]
               text-left
             "
           >
-            <div className="flex flex-col items-start mt-25">
+            <div className="flex flex-col items-start mt-50">
               <div className="flex flex-col sm:flex-row gap-2 sm:gap-6 mb-4">
                 <span
                   className="
