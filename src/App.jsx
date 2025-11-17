@@ -9,6 +9,7 @@ import Home from "./components/Home";
 import Blog from "./pages/Blog";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
+import Register from "./pages/Register";   // <-- AGREGADO
 import FeedingCalculator from "./pages/FeedingCalculator";
 
 import "./App.css";
@@ -23,6 +24,7 @@ function App() {
         <Route element={<PublicLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} /> {/* <-- NUEVA RUTA */}
           <Route path="/feeding-calculator" element={<FeedingCalculator />} />
           <Route path="/blog" element={<Blog />} /> {/* Blog público */}
         </Route>

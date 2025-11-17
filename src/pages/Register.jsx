@@ -1,22 +1,25 @@
 import { useState, useRef, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const Login = () => {
+const Register = () => {
+  const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [telefono, setTelefono] = useState("");
   const [error, setError] = useState("");
   const [captchaToken, setCaptchaToken] = useState("");
-  const navigate = useNavigate();
-  const captchaRef = useRef(null);
 
-  // Cargar script de Turnstile
+  const captchaRef = useRef(null);
+  const navigate = useNavigate();
+
+  // Cargar Cloudflare Turnstile
   useEffect(() => {
     const loadTurnstile = () => {
       if (!window.turnstile || !captchaRef.current) return;
 
       window.turnstile.render(captchaRef.current, {
-        sitekey: "0x4AAAAAACBZe5UfyE9icBw4",
+        sitekey: "0x4AAAAAACBZe5UfyE9icBw4", // reemplázalo por tu clave
         callback: (token) => setCaptchaToken(token),
         theme: "light",
       });
@@ -35,31 +38,37 @@ const Login = () => {
     }
   }, []);
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
 
+    // Validaciones front
+    if (!nombre || !email || !password || !telefono) {
+      setError("Todos los campos son obligatorios");
+      return;
+    }
+    if (!/^\d{7,15}$/.test(telefono)) {
+      setError("Teléfono inválido (solo números, 7-15 dígitos)");
+      return;
+    }
     if (!captchaToken) {
       setError("Por favor completa el captcha");
       return;
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      const res = await fetch("http://localhost:5000/api/auth/register", {
         method: "POST",
-        headers: { "Content-Type": "application/json" }, // <- corregido
-        body: JSON.stringify({ email, password, captchaToken }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nombre, email, password, telefono, captchaToken }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.msg || "Error al iniciar sesión");
+        setError(data.msg || "Error al crear cuenta");
       } else {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        if (data.user.rol === "admin") navigate("/dashboard");
-        else navigate("/");
+        navigate("/login");
       }
     } catch (err) {
       setError("Error del servidor");
@@ -75,7 +84,7 @@ const Login = () => {
         className="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-200 dark:border-gray-700"
       >
         <h2 className="text-3xl font-bold text-center font-ceraroundregular mb-6 text-gray-800 dark:text-white">
-          Iniciar Sesión
+          Crear Cuenta
         </h2>
 
         {error && (
@@ -88,7 +97,22 @@ const Login = () => {
           </motion.p>
         )}
 
-        <form onSubmit={handleLogin} className="flex flex-col gap-4">
+        <form onSubmit={handleRegister} className="flex flex-col gap-4">
+          {/* Nombre */}
+          <div className="flex flex-col">
+            <label className="text-gray-600 dark:text-gray-300 mb-1 font-medium">
+              Nombre completo
+            </label>
+            <input
+              type="text"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+              className="border border-gray-300 dark:border-gray-600 p-3 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-400 focus:outline-none"
+              placeholder="Juan Estay"
+              required
+            />
+          </div>
+
           {/* Email */}
           <div className="flex flex-col">
             <label className="text-gray-600 dark:text-gray-300 mb-1 font-medium">
@@ -98,9 +122,23 @@ const Login = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="border border-gray-300 dark:border-gray-600 p-3 rounded-xl bg-gray-50 dark:bg-gray-700 
-              text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-400 focus:outline-none"
+              className="border border-gray-300 dark:border-gray-600 p-3 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-400 focus:outline-none"
               placeholder="ejemplo@gmail.com"
+              required
+            />
+          </div>
+
+          {/* Teléfono */}
+          <div className="flex flex-col">
+            <label className="text-gray-600 dark:text-gray-300 mb-1 font-medium">
+              Teléfono
+            </label>
+            <input
+              type="tel"
+              value={telefono}
+              onChange={(e) => setTelefono(e.target.value)}
+              className="border border-gray-300 dark:border-gray-600 p-3 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-400 focus:outline-none"
+              placeholder="987654321"
               required
             />
           </div>
@@ -114,8 +152,7 @@ const Login = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="border border-gray-300 dark:border-gray-600 p-3 rounded-xl bg-gray-50 dark:bg-gray-700 
-              text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-400 focus:outline-none"
+              className="border border-gray-300 dark:border-gray-600 p-3 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-400 focus:outline-none"
               placeholder="••••••••"
               required
             />
@@ -124,34 +161,19 @@ const Login = () => {
           {/* Turnstile */}
           <div className="my-4" ref={captchaRef}></div>
 
-          {/* Botón */}
           <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             type="submit"
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold
-            shadow-lg hover:opacity-90 transition"
+            className="w-full py-3 rounded-xl bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold shadow-lg hover:opacity-90 transition"
           >
-            Iniciar Sesión
+            Crear Cuenta
           </motion.button>
         </form>
 
-        {/* Reset password + Crear cuenta */}
-        <div className="mt-4 text-center flex justify-center gap-3">
-          <Link
-            to="/reset-password"
-            className="text-sm text-blue-500 hover:text-blue-600 font-medium transition"
-          >
-            ¿Olvidaste tu contraseña?
-          </Link>
-
-          <span className="text-gray-500">|</span>
-
-          <Link
-            to="/register"
-            className="text-sm text-green-500 hover:text-green-600 font-medium transition"
-          >
-            Crear cuenta
+        <div className="mt-4 text-center flex justify-center gap-2">
+          <Link to="/login" className="text-sm text-blue-500 hover:text-blue-600 font-medium transition">
+            ¿Ya tienes una cuenta? Iniciar sesión
           </Link>
         </div>
       </motion.div>
@@ -159,4 +181,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
