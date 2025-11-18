@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { HiMenu, HiX, HiSearch } from "react-icons/hi";
 import { FaUser } from "react-icons/fa";
 
-// 🎨 Estilos por categoría tipo ficha clínica
 const getTabStyle = (name) => {
   const base =
     "transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:scale-[1.02] hover:border-l-[6px] rounded-full px-6 py-2 shadow-sm flex items-center justify-center text-center w-fit gap-2";
@@ -27,7 +26,7 @@ const Navbar = () => {
     { name: "SuperFood Prescripción", href: "#prescripcion" },
     { name: "SuperFood Mantención", href: "#mantencion" },
     { name: "SuperFood Snack", href: "#snack" },
-    { name: "Blog", href: "/blog" }, // Público
+    { name: "Blog", href: "/blog" },
     { name: "Encuéntranos aquí", href: "#encuentranos" },
   ];
 
@@ -54,16 +53,22 @@ const Navbar = () => {
 
   return (
     <header className="bg-white shadow-md fixed top-0 left-0 w-full z-50 font-ceraroundblack font-black">
-      <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-4">
+      {/* MOVIDO A LA IZQUIERDA */}
+      <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-4 ml-1">
+
         {/* Desktop layout */}
-        <div className="hidden lg:flex items-start justify-between mb-4">
-          <div className="flex flex-col w-64">
+        <div className="hidden lg:flex items-center justify-between mb-4 gap-6">
+
+          {/* Logo + Buscador */}
+          <div className="flex items-center gap-12 flex-shrink-0">
             <Link to="/">
-              <img src="/img/Logo_G.png" alt="GEROLAMO" className="h-28 w-auto" />
+              <img src="/img/Logo_G.png" alt="GEROLAMO" className="h-32 w-auto" />
             </Link>
+
             <form
               onSubmit={handleSearch}
-              className="mt-1 flex items-center bg-gray-100 rounded-full px-4 py-2 focus-within:ring-2 focus-within:ring-[#EE66A2]"
+              className="flex items-center bg-gray-100 rounded-full px-4 py-2 
+                         focus-within:ring-2 focus-within:ring-[#EE66A2] w-72"
             >
               <HiSearch className="text-gray-500 text-base" />
               <input
@@ -76,8 +81,9 @@ const Navbar = () => {
             </form>
           </div>
 
-          <div className="bg-[#417ABD] rounded-full px-6 py-4 mt-12 shadow-inner flex justify-center items-center">
-            <nav className="flex gap-x-2 text-gray-700 font-bold text-sm font-CeraRoundProBlack items-center">
+          {/* Menú azul */}
+          <div className="bg-[#417ABD] rounded-full px-18 py-4 shadow-inner flex justify-center items-center">
+            <nav className="flex gap-x-4 text-gray-700 font-bold text-sm font-CeraRoundProBlack items-center">
               {links.map((link) => {
                 if (link.name === "Encuéntranos aquí") {
                   return (

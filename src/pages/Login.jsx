@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -6,49 +6,17 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [captchaToken, setCaptchaToken] = useState("");
   const navigate = useNavigate();
-  const captchaRef = useRef(null);
-
-  // Cargar script de Turnstile
-  useEffect(() => {
-    const loadTurnstile = () => {
-      if (!window.turnstile || !captchaRef.current) return;
-
-      window.turnstile.render(captchaRef.current, {
-        sitekey: "0x4AAAAAACBZe5UfyE9icBw4",
-        callback: (token) => setCaptchaToken(token),
-        theme: "light",
-      });
-    };
-
-    if (!document.getElementById("cf-turnstile")) {
-      const script = document.createElement("script");
-      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
-      script.async = true;
-      script.defer = true;
-      script.id = "cf-turnstile";
-      script.onload = loadTurnstile;
-      document.body.appendChild(script);
-    } else {
-      loadTurnstile();
-    }
-  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
 
-    if (!captchaToken) {
-      setError("Por favor completa el captcha");
-      return;
-    }
-
     try {
       const res = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" }, // <- corregido
-        body: JSON.stringify({ email, password, captchaToken }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }), // <- sin captcha
       });
 
       const data = await res.json();
@@ -120,9 +88,6 @@ const Login = () => {
               required
             />
           </div>
-
-          {/* Turnstile */}
-          <div className="my-4" ref={captchaRef}></div>
 
           {/* Botón */}
           <motion.button

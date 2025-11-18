@@ -11,11 +11,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
         {/* Sección izquierda: Logo + descripción */}
         <div className="flex flex-col items-start">
-          <img src="/img/Logo_GB.png" alt="GEROLAMO" className="h-22 mb-4" />
-          <p className="text-base font-CeraRoundProLight leading-relaxed max-w-xs ml-2.5">
-            Creamos una familia de productos elaborados con ingredientes de la
-            más alta calidad nacional.
-          </p>
+          <img src="/img/Logo_GB2.png" alt="GEROLAMO" className="h-22 w-auto mt-13 mr-6" />
         </div>
 
         {/* Sección central izquierda: Información de contacto */}

@@ -5,7 +5,7 @@ const Home = () => {
   const images = [
     "/img/carrusel/imagen1.png",
     "/img/carrusel/imagen2.png",
-    "/img/carrusel/Imagen3.png",
+    "/img/carrusel/imagen3.png",
   ];
   const [currentImage, setCurrentImage] = useState(0);
 
@@ -25,7 +25,7 @@ const Home = () => {
         h-[26rem] sm:h-[32rem] md:h-[40rem] lg:h-[44rem]
       "
     >
-      {/* 🔹 Fondo animado con Framer Motion */}
+      {/*Fondo animado con Framer Motion */}
       <AnimatePresence mode="wait">
         <motion.div
   key={currentImage}
@@ -39,7 +39,7 @@ const Home = () => {
   className={`absolute inset-0 bg-cover bg-no-repeat ${
     currentImage === 0 ? 'bg-[center_50%]' :
     currentImage === 1 ? 'bg-[center_50%]' :
-    'bg-[center_10%]'
+    'bg-[center_40%]'
   }`}
   style={{
     backgroundImage: `url('${images[currentImage]}')`,
@@ -48,7 +48,7 @@ const Home = () => {
 
       </AnimatePresence>
 
-      {/* 🔹 Contenido específico para cada imagen */}
+      {/*Contenido específico para cada imagen */}
       <AnimatePresence mode="wait">
         {/* Imagen 1: texto alineado a la izquierda */}
         {currentImage === 0 && (
@@ -112,7 +112,7 @@ const Home = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="
               absolute inset-0 flex flex-col items-center justify-center
-              z-20 gap-3 sm:gap-4 px-4
+              z-20 gap-1 sm:gap-4 px-1
             "
           >
             {[
@@ -126,12 +126,12 @@ const Home = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="
-                  bg-gradient-to-r from-[#EE66A2] to-[#F9A8D4]
+                  bg-[#EE66A2]
                   text-white font-semibold font-CeraRoundProRegular
-                  text-sm sm:text-base md:text-lg
-                  w-[80%] sm:w-[60%] md:w-[40%] lg:w-[25%]
-                  px-6 py-3 rounded-full shadow-lg
-                  hover:opacity-90 transition-all duration-300
+                  text-sm sm:!text-xl md:text-lg
+                  w-[50%] sm:w-[100%] md:w-[40%] lg:w-[25%]
+                  px-6 py-6 rounded-full shadow-lg
+                  hover:opacity-90 tansition-all duration-300
                 "
               >
                 {text}
@@ -142,20 +142,26 @@ const Home = () => {
 
         {/* Imagen 3: vacío (puedes agregar contenido futuro) */}
         {currentImage === 2 && (
-          <motion.div
-            key="texto3"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.8 }}
-            className="absolute inset-0 flex items-center justify-center text-white"
-          >
-            {/* Contenido opcional */}
-          </motion.div>
-        )}
+  <motion.div
+    key="texto3"
+    initial={{ opacity: 0, y: 30 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -30 }}
+    transition={{ duration: 0.8 }}
+    className="absolute text-white text-left z-20 top-[78%] left-[7%] w-auto"
+  >
+    <h2 className="font-CeraRoundProBlack font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-2">
+      Guía de Alimentación.
+    </h2>
+    <p className="font-CeraRoundProRegular font-bold text-base sm:text-lg md:text-xl lg:text-2xl">
+      CALCULADORA DE ALIMENTACION MIXTA
+    </p>
+  </motion.div>
+)}
+
       </AnimatePresence>
 
-      {/* 🔹 Indicadores del carrusel */}
+      {/*Indicadores del carrusel */}
       <div className="absolute bottom-4 sm:bottom-6 flex gap-2 sm:gap-3 z-30">
         {images.map((_, index) => (
           <button
