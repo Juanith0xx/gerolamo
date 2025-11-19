@@ -39,7 +39,7 @@ const Navbar = () => {
         const y = target.getBoundingClientRect().top + window.scrollY + yOffset;
         window.scrollTo({ top: y, behavior: "smooth" });
       }
-      setOpen(false);
+      setOpen(false); // cerrar menú después de scroll
     }
   };
 
@@ -53,12 +53,9 @@ const Navbar = () => {
 
   return (
     <header className="bg-white shadow-md fixed top-0 left-0 w-full z-50 font-ceraroundblack font-black">
-      {/* MOVIDO A LA IZQUIERDA */}
       <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-4 ml-1">
-
         {/* Desktop layout */}
         <div className="hidden lg:flex items-center justify-between mb-4 gap-6">
-
           {/* Logo + Buscador */}
           <div className="flex items-center gap-12 flex-shrink-0">
             <Link to="/">
@@ -162,7 +159,7 @@ const Navbar = () => {
         }`}
       >
         <div className="flex justify-between items-center px-4 py-4 border-b">
-          <Link to="/">
+          <Link to="/" onClick={() => setOpen(false)}>
             <img src="/img/Logo_G.png" alt="GEROLAMO" className="h-22 w-auto" />
           </Link>
           <button onClick={() => setOpen(false)} className="text-gray-700">
@@ -172,6 +169,7 @@ const Navbar = () => {
 
         <Link
           to="/login"
+          onClick={() => setOpen(false)}
           className="flex items-center gap-3 px-6 py-6 border-b cursor-pointer hover:bg-gray-100"
         >
           <div className="w-14 h-14 rounded-full flex items-center justify-center bg-white shadow-md overflow-hidden">
@@ -200,6 +198,7 @@ const Navbar = () => {
               <Link
                 key={link.name}
                 to={link.href}
+                onClick={() => setOpen(false)}
                 className="bg-[#417ABD] text-white rounded-full px-4 py-2 font-bold text-sm font-CeraRoundProBlack transition hover:bg-[#2f5f9e] flex justify-center items-center"
               >
                 {link.name}
@@ -208,7 +207,10 @@ const Navbar = () => {
               <a
                 key={link.name}
                 href={link.href}
-                onClick={(e) => handleScroll(e, link.href)}
+                onClick={(e) => {
+                  handleScroll(e, link.href);
+                  setOpen(false);
+                }}
                 className="bg-[#417ABD] text-white rounded-full px-4 py-2 font-bold text-sm font-CeraRoundProBlack transition hover:bg-[#2f5f9e] flex justify-center items-center"
               >
                 {link.name}

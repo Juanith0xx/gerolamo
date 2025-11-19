@@ -97,7 +97,7 @@ const Login = () => {
         <form onSubmit={handleLogin} className="flex flex-col gap-4">
           {/* Email */}
           <div className="flex flex-col">
-            <label className="text-gray-600 dark:text-gray-300 mb-1 font-medium">
+            <label className="text-gray-600 dark:text-gray-300 mb-1 font-medium font-ceraroundregular">
               Correo electrónico
             </label>
             <input
@@ -113,7 +113,7 @@ const Login = () => {
 
           {/* Password */}
           <div className="flex flex-col">
-            <label className="text-gray-600 dark:text-gray-300 mb-1 font-medium">
+            <label className="text-gray-600 dark:text-gray-300 mb-1 font-medium font-ceraroundregular">
               Contraseña
             </label>
             <input
@@ -135,7 +135,7 @@ const Login = () => {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             type="submit"
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold
+            className="w-full py-3 rounded-xl bg-[#F472B6] font-ceraroundregular text-white font-semibold
             shadow-lg hover:opacity-90 transition"
           >
             Iniciar Sesión
@@ -143,7 +143,7 @@ const Login = () => {
         </form>
 
         {/* Reset password + Crear cuenta */}
-        <div className="mt-4 text-center flex justify-center gap-3">
+        <div className="mt-4 text-center flex justify-center gap-3 font-ceraroundregular">
           <Link
             to="/reset-password"
             className="text-sm text-blue-500 hover:text-blue-600 font-medium transition"
@@ -151,11 +151,11 @@ const Login = () => {
             ¿Olvidaste tu contraseña?
           </Link>
 
-          <span className="text-gray-500">|</span>
+          <span className="text-gray-500 font-ceraroundregular">|</span>
 
           <Link
             to="/register"
-            className="text-sm text-green-500 hover:text-green-600 font-medium transition"
+            className="text-sm text-green-500 hover:text-green-600 font-medium font-ceraroundregular transition"
           >
             Crear cuenta
           </Link>

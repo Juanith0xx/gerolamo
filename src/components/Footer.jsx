@@ -1,4 +1,3 @@
-// src/components/Footer.jsx
 import { FaFacebookF, FaInstagram, FaYoutube, FaTiktok } from "react-icons/fa";
 import { TbWorldCheck } from "react-icons/tb";
 import { LuPhoneCall } from "react-icons/lu";

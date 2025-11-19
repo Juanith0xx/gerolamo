@@ -76,7 +76,7 @@ const Home = () => {
       </div>
     </motion.div>
 
-    {/* Móvil — texto más arriba */}
+    {/* Móvil*/}
     <motion.div
       key="texto1-mobile"
       initial={{ opacity: 0, y: -20 }}
@@ -126,7 +126,7 @@ const Home = () => {
       ))}
     </motion.div>
 
-    {/* Móvil — botones más pequeños */}
+    {/* Móvil */}
     <motion.div
       key="botones2-mobile"
       initial={{ opacity: 0, y: 20 }}
@@ -145,7 +145,7 @@ const Home = () => {
           key={index}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="bg-[#EE66A2] text-white font-semibold font-CeraRoundProRegular text-xs px-4 py-4 rounded-full shadow-lg hover:opacity-90 transition-all duration-300 w-[70%]"
+          className="bg-[#EE66A2] text-white font-semibold font-CeraRoundProRegular text-xs px-4 py-2 rounded-full shadow-lg hover:opacity-90 transition-all duration-300 w-[65%]"
         >
           {text}
         </motion.button>
@@ -199,7 +199,7 @@ const Home = () => {
       </Link>
     </motion.div>
 
-    {/* Móvil — texto más arriba y botón más pequeño */}
+    {/* Móvil*/}
     <motion.div
       key="texto3-mobile"
       initial={{ opacity: 0, y: 20 }}
@@ -231,7 +231,7 @@ const Home = () => {
             bg-[#417ABD]
             text-white font-semibold font-CeraRoundProRegular
             text-sm  /* más pequeño que el original lg */
-            px-6 py-3  /* más pequeño que px-8 py-4 */
+            px-3 py-2  /* más pequeño que px-8 py-4 */
             rounded-full shadow-lg
             hover:opacity-90 transition-all duration-300
             w-[70%]  /* ancho reducido */

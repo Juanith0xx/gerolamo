@@ -95,22 +95,22 @@ const Register = () => {
         <form onSubmit={handleRegister} className="flex flex-col gap-4">
           {/* Nombre */}
           <div className="flex flex-col">
-            <label className="text-gray-600 dark:text-gray-300 mb-1 font-medium">
+            <label className="text-gray-600 dark:text-gray-300 mb-1 font-medium font-ceraroundregular">
               Nombre completo
             </label>
             <input
               type="text"
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
-              className="border border-gray-300 dark:border-gray-600 p-3 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-400 focus:outline-none"
-              placeholder="Juan Estay"
+              className="border border-gray-300 dark:border-gray-600 p-3 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-400 focus:outline-none font-ceraroundregular"
+              placeholder="Nombre"
               required
             />
           </div>
 
           {/* Email */}
           <div className="flex flex-col">
-            <label className="text-gray-600 dark:text-gray-300 mb-1 font-medium">
+            <label className="text-gray-600 dark:text-gray-300 mb-1 font-medium font-ceraroundregular">
               Correo electrónico
             </label>
             <input
@@ -125,7 +125,7 @@ const Register = () => {
 
           {/* Password */}
           <div className="flex flex-col">
-            <label className="text-gray-600 dark:text-gray-300 mb-1 font-medium">
+            <label className="text-gray-600 dark:text-gray-300 mb-1 font-medium font-ceraroundregular">
               Contraseña
             </label>
             <input
@@ -145,7 +145,7 @@ const Register = () => {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             type="submit"
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold shadow-lg hover:opacity-90 transition"
+            className="w-full py-3 rounded-xl bg-[#F472B6]  text-white font-semibold shadow-lg hover:opacity-90 transition"
           >
             Crear Cuenta
           </motion.button>
