@@ -6,7 +6,6 @@ const Register = () => {
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [telefono, setTelefono] = useState("");
   const [error, setError] = useState("");
   const [captchaToken, setCaptchaToken] = useState("");
 
@@ -19,7 +18,7 @@ const Register = () => {
       if (!window.turnstile || !captchaRef.current) return;
 
       window.turnstile.render(captchaRef.current, {
-        sitekey: "0x4AAAAAACBZe5UfyE9icBw4", // reemplázalo por tu clave
+        sitekey: "0x4AAAAAACBZe5UfyE9icBw4",
         callback: (token) => setCaptchaToken(token),
         theme: "light",
       });
@@ -43,12 +42,8 @@ const Register = () => {
     setError("");
 
     // Validaciones front
-    if (!nombre || !email || !password || !telefono) {
+    if (!nombre || !email || !password) {
       setError("Todos los campos son obligatorios");
-      return;
-    }
-    if (!/^\d{7,15}$/.test(telefono)) {
-      setError("Teléfono inválido (solo números, 7-15 dígitos)");
       return;
     }
     if (!captchaToken) {
@@ -60,7 +55,7 @@ const Register = () => {
       const res = await fetch("http://localhost:5000/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nombre, email, password, telefono, captchaToken }),
+        body: JSON.stringify({ nombre, email, password, captchaToken }),
       });
 
       const data = await res.json();
@@ -124,21 +119,6 @@ const Register = () => {
               onChange={(e) => setEmail(e.target.value)}
               className="border border-gray-300 dark:border-gray-600 p-3 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-400 focus:outline-none"
               placeholder="ejemplo@gmail.com"
-              required
-            />
-          </div>
-
-          {/* Teléfono */}
-          <div className="flex flex-col">
-            <label className="text-gray-600 dark:text-gray-300 mb-1 font-medium">
-              Teléfono
-            </label>
-            <input
-              type="tel"
-              value={telefono}
-              onChange={(e) => setTelefono(e.target.value)}
-              className="border border-gray-300 dark:border-gray-600 p-3 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white focus:ring-2 focus:ring-blue-400 focus:outline-none"
-              placeholder="987654321"
               required
             />
           </div>
